@@ -1,0 +1,1 @@
+cat ddl.sql | sqlite3 liberty-flag.sqlite 
