@@ -1,10 +1,17 @@
 'use strict';
 
 const Koa = require('koa');
-const app = new Koa();
+const Router = require('@koa/router');
 
-app.use(ctx => {
+const app = new Koa();
+const router = new Router();
+
+router.get('koa-example', '/', (ctx) => {
   ctx.body = 'Hello World';
 });
+
+app
+  .use(router.routes())
+  .use(router.allowedMethods());
 
 app.listen(1234);
