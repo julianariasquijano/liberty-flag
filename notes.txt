@@ -1,1 +1,5 @@
-cat ddl.sql | sqlite3 liberty-flag.sqlite 
+cat ddl.sql | sqlite3 liberty-flag.sqlite
+
+koa
+    npm init -y
+    npm install koa@2.13.1
