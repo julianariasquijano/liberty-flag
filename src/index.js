@@ -49,6 +49,11 @@ router.get('error', '/error', (ctx) => {
   ctx.throw(500, 'App internal server error');
 });
 
+router.get('status', '/status', (ctx) => {
+  ctx.status = 200;
+  ctx.body   = 'ok';
+})
+
 app
   .use(router.routes())
   .use(router.allowedMethods());
