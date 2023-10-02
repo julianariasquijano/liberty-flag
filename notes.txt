@@ -7,3 +7,4 @@ koa
     npm install koa-ejs@4.3.0
 
     node src/index.js
+    npm start
