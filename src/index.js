@@ -8,6 +8,16 @@ const path = require('path');
 const app = new Koa();
 const router = new Router();
 
+app.use(async (ctx, next) => {
+  try {
+    await next()
+  } catch(err) {
+    console.log(err.status)
+    ctx.status = err.status || 500;
+    ctx.body = err.message;
+  }
+});
+
 render(app, {
   root: path.join(__dirname, 'views'),
   layout: 'index',
@@ -34,6 +44,10 @@ router.get('index', '/', (ctx) => {
   });  
 
 })
+
+router.get('error', '/error', (ctx) => {
+  ctx.throw(500, 'App internal server error');
+});
 
 app
   .use(router.routes())
