@@ -5,6 +5,7 @@ koa
     npm install koa@2.13.1
     npm install @koa/router@10.0.0
     npm install koa-ejs@4.3.0
+    npm i sqlite3
 
     node src/index.js
     npm start
