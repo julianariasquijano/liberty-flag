@@ -1,8 +1,8 @@
-<h2>Feature Flags</h2>
-<ul class="list-group">
-  <% featureFlags.forEach( function(featureFlag) { %>
-    <li class="list-group-item">
-      <a href="/change-flag?name=<%= featureFlag.meta_name %>"> <%= featureFlag.meta_name %> - <%= featureFlag.meta_value %> </a>
+<h2>Flags</h2>
+<ul>
+  <% flags.forEach( function(flag) { %>
+    <li>
+      <a href="/change-flag?name=<%= flag.name %>"> <%= flag.name %> - <%= flag.value %> </a>
     </li>
   <% }) %>
 </ul>

@@ -29,18 +29,18 @@ render(app, {
 
 router.get('index', '/', (ctx) => {
 
-  var featureFlags = db.getFlags()
-
+  var flags = db.getFlags()
   return ctx.render('flags', {
-    featureFlags: featureFlags
+    flags: flags
   });  
 
 })
 
 router.get('change-flag', '/change-flag', (ctx) => {
 
+  var flag = db.getFlag(ctx.request.query.name)
   return ctx.render('change-flag', {
-    flag: db.getFlag(ctx.request.query.name)
+    flag: flag
   });  
 
 })
