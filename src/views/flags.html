@@ -11,7 +11,15 @@
   <% flags.forEach( function(flag) { %>
     <tr>
       <td><a href="/update-flag?name=<%= flag.name %>"> <%= flag.name %></a></td>
-      <td><%= flag.value %></td>
+      <td>
+        <% if (flag.value=="0") { %>
+          <input type="checkbox" id="switch" name="switch" role="switch" disabled>
+        <% } else if (flag.value=="1") { %>
+          <input type="checkbox" id="switch" name="switch" role="switch" disabled checked>
+        <% } else { %>
+          <%= flag.value %>
+        <% } %>
+      </td>
     </tr>    
   <% }) %>
 </table>
