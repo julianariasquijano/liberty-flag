@@ -42,17 +42,16 @@ router.get('change-flag', '/change-flag', (ctx) => {
   var flag = db.getFlag(ctx.request.query.name)
   return ctx.render('change-flag', {
     flag: flag,
-    saved: false
+    messages: []
   });  
 
 })
 
 router.post('save-flag', '/save-flag',  koaBody(), (ctx) => {
-  db.saveFlag(ctx.request.body)
-  var flag = db.getFlag(ctx.request.body["flag-name"])
+  var flag = db.saveFlag(ctx.request.body)
   return ctx.render('change-flag', {
     flag: flag,
-    saved: true
+    messages: ['Saved']
   });  
 
 })

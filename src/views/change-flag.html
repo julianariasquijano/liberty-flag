@@ -1,8 +1,10 @@
-<% if(saved) {%>
-<label for="flag-name">
-    Saved
+<% messages.forEach( function(message) { %>
+  <label>
+      <%= message %>
+  </label>    
 </label>    
-<%}%>    
+  </label>    
+<% }) %>
 <form action="/save-flag" method="POST">
 
     <!-- Grid -->

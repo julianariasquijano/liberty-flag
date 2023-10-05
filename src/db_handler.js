@@ -1,6 +1,6 @@
 const db = require('better-sqlite3')('database/liberty-flag.sqlite');
 
-exports.getFlags = function (){
+const getFlags = function (){
     var list = [];
     const rows = db.prepare('SELECT * FROM flags').all();
     rows.forEach(function (row) {
@@ -11,8 +11,9 @@ exports.getFlags = function (){
     });
     return list;
 }
+exports.getFlags = getFlags
 
-exports.getFlag = function (flag){
+const getFlag = function (flag){
 
     var result = {};
 
@@ -24,7 +25,12 @@ exports.getFlag = function (flag){
     return result;
 
 }
+exports.getFlag = getFlag
 
-exports.saveFlag = function (data){
+const saveFlag = function (data){
     db.prepare("UPDATE flags SET flag_value = ? WHERE flag_name=?").run(data["flag-value"],data["flag-name"]) 
+    return getFlag(data["flag-name"])
 }
+exports.saveFlag = saveFlag
+
+
