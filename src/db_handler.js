@@ -19,11 +19,11 @@ const getFlags = function (){
 }
 exports.getFlags = getFlags
 
-const getFlag = function (flag){
+const getFlag = function (flagName){
 
     var result = {};
 
-    const row = db.prepare("SELECT * FROM flags WHERE flag_name=?").get(flag)
+    const row = db.prepare("SELECT * FROM flags WHERE flag_name=?").get(flagName)
     result = {
         name: row.flag_name,
         value: row.flag_value
@@ -38,5 +38,10 @@ const updateFlag = function (data){
     return getFlag(data["flag-name"])
 }
 exports.updateFlag = updateFlag
+
+const deleteFlag = function (flagName){
+    var st = db.prepare("DELETE FROM flags WHERE flag_name=?").run(flagName)
+}
+exports.deleteFlag = deleteFlag
 
 

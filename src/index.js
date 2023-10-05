@@ -30,9 +30,8 @@ render(app, {
 
 router.get('flags', '/flags', (ctx) => {
 
-  var flags = db.getFlags()
   return ctx.render('flags', {
-    flags: flags
+    flags: db.getFlags()
   });  
 
 })
@@ -70,6 +69,15 @@ router.post('update-flag', '/update-flag',  koaBody(), (ctx) => {
   return ctx.render('update-flag', {
     flag: flag,
     messages: ['Updated']
+  });  
+
+})
+
+router.get('delete-flag', '/delete-flag', (ctx) => {
+  db.deleteFlag(ctx.request.query.name)
+  return ctx.render('flags', {
+    flags: db.getFlags(),
+    messages: ['Flag '+ ctx.request.query.name +' Deleted']
   });  
 
 })

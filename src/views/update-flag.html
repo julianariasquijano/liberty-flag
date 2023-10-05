@@ -1,10 +1,4 @@
-<% messages.forEach( function(message) { %>
-  <label>
-      <%= message %>
-  </label>    
-</label>    
-  </label>    
-<% }) %>
+<a href="/delete-flag?name=<%= flag.name %>">Delete Flag</a>
 <form action="/update-flag" method="POST">
 
     <!-- Grid -->
@@ -25,7 +19,7 @@
     </div>
   
     <!-- Button -->
-    <button type="submit">Save</button>
+    <button type="submit">Update</button>
   
 </form>
 <a href="/flags">Return to Flags</a>
