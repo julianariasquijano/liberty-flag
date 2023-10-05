@@ -1,3 +1,7 @@
+<script>
+  document.getElementById("menu-actions").innerHTML = "<li><a href='/delete-flag?name=<%= flag.name %>'' role='button' style='color:white;background-color: firebrick;''>Delete Flag</a></li>"
+  document.getElementById("menu-title").innerHTML = "<strong>Update Flag</strong>"
+</script>
 <article>
   <form action="/update-flag" method="POST">
 
@@ -23,4 +27,3 @@
     
   </form>
 </article>
-<a href="/delete-flag?name=<%= flag.name %>" role="button" style="background-color: firebrick;">Delete Flag</a>
