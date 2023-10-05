@@ -1,1 +1,29 @@
-<%= flag.name %> - <%= flag.value %>
+<% if(saved) {%>
+<label for="flag-name">
+    Saved
+</label>    
+<%}%>    
+<form action="/save-flag" method="POST">
+
+    <!-- Grid -->
+    <div class="grid">
+  
+      <!-- Markup example 1: input is inside label -->
+      <label for="flag-name-disabled">
+        Flag name
+        <input type="text" id="flag-name-disabled" name="flag-name-disabled" placeholder="Flag name" disabled value="<%= flag.name %>">
+        <input type="hidden" name="flag-name" value="<%= flag.name %>">
+      </label>
+  
+      <label for="flag-value">
+        Flag value
+        <input type="text" id="flag-value" name="flag-value" placeholder="Flag value"  required value="<%= flag.value %>">
+      </label>
+  
+    </div>
+  
+    <!-- Button -->
+    <button type="submit">Save</button>
+  
+</form>
+<a href="/flags">Return to Flags</a>

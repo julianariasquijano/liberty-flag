@@ -24,3 +24,7 @@ exports.getFlag = function (flag){
     return result;
 
 }
+
+exports.saveFlag = function (data){
+    db.prepare("UPDATE flags SET flag_value = ? WHERE flag_name=?").run(data["flag-value"],data["flag-name"]) 
+}

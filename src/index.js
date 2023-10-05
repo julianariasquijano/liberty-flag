@@ -5,6 +5,7 @@ const Router = require('@koa/router');
 const render = require('koa-ejs');
 const path = require('path');
 var db = require('./db_handler.js');
+const { koaBody } = require('koa-body');
 
 const app = new Koa();
 const router = new Router();
@@ -27,7 +28,7 @@ render(app, {
   debug: true
 });
 
-router.get('index', '/', (ctx) => {
+router.get('flags', '/flags', (ctx) => {
 
   var flags = db.getFlags()
   return ctx.render('flags', {
@@ -40,7 +41,18 @@ router.get('change-flag', '/change-flag', (ctx) => {
 
   var flag = db.getFlag(ctx.request.query.name)
   return ctx.render('change-flag', {
-    flag: flag
+    flag: flag,
+    saved: false
+  });  
+
+})
+
+router.post('save-flag', '/save-flag',  koaBody(), (ctx) => {
+  db.saveFlag(ctx.request.body)
+  var flag = db.getFlag(ctx.request.body["flag-name"])
+  return ctx.render('change-flag', {
+    flag: flag,
+    saved: true
   });  
 
 })
