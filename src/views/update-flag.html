@@ -1,25 +1,26 @@
-<a href="/delete-flag?name=<%= flag.name %>">Delete Flag</a>
-<form action="/update-flag" method="POST">
+<article>
+  <form action="/update-flag" method="POST">
 
-    <!-- Grid -->
-    <div class="grid">
-  
-      <!-- Markup example 1: input is inside label -->
-      <label for="flag-name-disabled">
-        Flag name
-        <input type="text" id="flag-name-disabled" name="flag-name-disabled" placeholder="Flag name" disabled value="<%= flag.name %>">
-        <input type="hidden" name="flag-name" value="<%= flag.name %>">
-      </label>
-  
-      <label for="flag-value">
-        Flag value
-        <input type="text" id="flag-value" name="flag-value" placeholder="Flag value"  required value="<%= flag.value %>">
-      </label>
-  
-    </div>
-  
-    <!-- Button -->
-    <button type="submit">Update</button>
-  
-</form>
-<a href="/flags">Return to Flags</a>
+      <!-- Grid -->
+      <div class="grid">
+    
+        <!-- Markup example 1: input is inside label -->
+        <label for="flag-name-disabled">
+          Flag name
+          <input type="text" id="flag-name-disabled" name="flag-name-disabled" placeholder="Flag name" disabled value="<%= flag.name %>">
+          <input type="hidden" name="flag-name" value="<%= flag.name %>">
+        </label>
+    
+        <label for="flag-value">
+          Flag value
+          <input type="text" id="flag-value" name="flag-value" placeholder="Flag value"  required value="<%= flag.value %>">
+        </label>
+    
+      </div>
+    
+      <!-- Button -->
+      <button type="submit">Update</button>
+    
+  </form>
+</article>
+<a href="/delete-flag?name=<%= flag.name %>" role="button" style="background-color: firebrick;">Delete Flag</a>

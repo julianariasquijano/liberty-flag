@@ -1,23 +1,27 @@
-<form action="/create-flag" method="POST">
+<script>
+  document.getElementById("menu-title").innerHTML = "<strong>Create Flag</strong>"
+</script>
+<article>
+  <form action="/create-flag" method="POST">
 
-    <!-- Grid -->
-    <div class="grid">
-  
-      <!-- Markup example 1: input is inside label -->
-      <label for="flag-name">
-        Flag name
-        <input type="text" id="flag-name" name="flag-name" required >
-      </label>
-  
-      <label for="flag-value">
-        Flag value
-        <input type="text" id="flag-value" name="flag-value" required>
-      </label>
-  
-    </div>
-  
-    <!-- Button -->
-    <button type="submit">Create</button>
-  
-</form>
-<a href="/flags">Return to Flags</a>
+      <!-- Grid -->
+      <div class="grid">
+    
+        <!-- Markup example 1: input is inside label -->
+        <label for="flag-name">
+          Flag name
+          <input type="text" id="flag-name" name="flag-name" required >
+        </label>
+    
+        <label for="flag-value">
+          Flag value
+          <input type="text" id="flag-value" name="flag-value" required>
+        </label>
+    
+      </div>
+    
+      <!-- Button -->
+      <button role="button" type="submit">Create</button>
+    
+  </form>
+</article>

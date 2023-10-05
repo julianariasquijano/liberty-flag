@@ -2,12 +2,29 @@
     <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     </head>
+    <% if (typeof module=="undefined")var module="" %>
     <body>
+        <nav>
+            <ul>
+              <li></li>
+              <li><strong>Liberty Flags</strong></li>
+            </ul>
+            <ul>
+              <li id="menu-title"></li>
+            </ul>            
+            <ul>
+              <li id="menu-actions"></li>
+              <li><a href="/flags">Flags</a></li>
+              <li></li>
+            </ul>            
+          </nav>        
         <% if (typeof messages=="undefined")var messages=[] %>
         <% messages.forEach( function(message) { %>
-            <label>
+            <center>
+            <mark>
                 <%= message %>
-            </label>
+            </mark>
+            </center>
         <% }) %>        
         <%- body %>
     </body>

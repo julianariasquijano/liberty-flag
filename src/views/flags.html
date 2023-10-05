@@ -1,5 +1,7 @@
-<h2>Flags</h2>
-<a href="/create-flag">Create</a>
+<script>
+  document.getElementById("menu-actions").innerHTML = "<a href='/create-flag'>Create</a>"
+  document.getElementById("menu-title").innerHTML = "<strong>Flags List</strong>"
+</script>
 <ul>
   <% flags.forEach( function(flag) { %>
     <li>
