@@ -37,21 +37,39 @@ router.get('flags', '/flags', (ctx) => {
 
 })
 
-router.get('change-flag', '/change-flag', (ctx) => {
+router.get('create-flag', '/create-flag', (ctx) => {
+
+  return ctx.render('create-flag', {
+    messages: []
+  });  
+
+})
+
+router.post('create-flag', '/create-flag',  koaBody(),(ctx) => {
+
+  var flag = db.createFlag(ctx.request.body)
+  return ctx.render('update-flag', {
+    flag: flag,
+    messages: ['Created']
+  }); 
+
+})
+
+router.get('update-flag', '/update-flag', (ctx) => {
 
   var flag = db.getFlag(ctx.request.query.name)
-  return ctx.render('change-flag', {
+  return ctx.render('update-flag', {
     flag: flag,
     messages: []
   });  
 
 })
 
-router.post('save-flag', '/save-flag',  koaBody(), (ctx) => {
-  var flag = db.saveFlag(ctx.request.body)
-  return ctx.render('change-flag', {
+router.post('update-flag', '/update-flag',  koaBody(), (ctx) => {
+  var flag = db.updateFlag(ctx.request.body)
+  return ctx.render('update-flag', {
     flag: flag,
-    messages: ['Saved']
+    messages: ['Updated']
   });  
 
 })

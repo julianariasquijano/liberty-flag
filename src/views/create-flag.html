@@ -1,0 +1,30 @@
+<% messages.forEach( function(message) { %>
+  <label>
+      <%= message %>
+  </label>    
+</label>    
+  </label>    
+<% }) %>
+<form action="/create-flag" method="POST">
+
+    <!-- Grid -->
+    <div class="grid">
+  
+      <!-- Markup example 1: input is inside label -->
+      <label for="flag-name">
+        Flag name
+        <input type="text" id="flag-name" name="flag-name" placeholder="Flag name" required >
+      </label>
+  
+      <label for="flag-value">
+        Flag value
+        <input type="text" id="flag-value" name="flag-value" placeholder="Flag value"  required>
+      </label>
+  
+    </div>
+  
+    <!-- Button -->
+    <button type="submit">Create</button>
+  
+</form>
+<a href="/flags">Return to Flags</a>

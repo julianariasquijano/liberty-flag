@@ -1,9 +1,9 @@
 <h2>Flags</h2>
-<a href="/change-flag">Create</a>
+<a href="/create-flag">Create</a>
 <ul>
   <% flags.forEach( function(flag) { %>
     <li>
-      <a href="/change-flag?name=<%= flag.name %>"> <%= flag.name %> - <%= flag.value %> </a>
+      <a href="/update-flag?name=<%= flag.name %>"> <%= flag.name %> - <%= flag.value %> </a>
     </li>
   <% }) %>
 </ul>
