@@ -2,10 +2,17 @@
   document.getElementById("menu-actions").innerHTML = "<li><a href='/create-flag'>Create</a></li>"
   document.getElementById("menu-title").innerHTML = "<strong>Flags List</strong>"
 </script>
-<ul>
+<article>
+<table role="grid">
+  <tr>
+      <th>Flag Name</th>
+      <th>Flag Value</th>
+  </tr>
   <% flags.forEach( function(flag) { %>
-    <li>
-      <a href="/update-flag?name=<%= flag.name %>"> <%= flag.name %> - <%= flag.value %> </a>
-    </li>
+    <tr>
+      <td><a href="/update-flag?name=<%= flag.name %>"> <%= flag.name %></a></td>
+      <td><%= flag.value %></td>
+    </tr>    
   <% }) %>
-</ul>
+  </table>
+</article>
