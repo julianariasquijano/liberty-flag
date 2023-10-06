@@ -82,6 +82,18 @@ router.get('delete-flag', '/delete-flag', (ctx) => {
 
 })
 
+router.post('api-get-flag', '/api/flag',  koaBody(), (ctx) => {
+  var flag = ""
+  try {
+    flag = db.getFlag(ctx.request.body.flag)
+  } catch (error) {
+    ctx.status = 500
+    ctx.body = "error"
+    console.error(error)
+  }
+  return ctx.body=flag.value
+})
+
 router.get('error', '/error', (ctx) => {
   ctx.throw(500, 'App internal server error');
 });
@@ -95,4 +107,4 @@ app
   .use(router.routes())
   .use(router.allowedMethods());
 
-app.listen(1234);
+app.listen(9000);

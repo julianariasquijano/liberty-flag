@@ -10,3 +10,5 @@ koa
 
     node src/index.js
     npm start
+
+    curl -d "flag=threaded" -X POST http://localhost:9000/api/get-flag
