@@ -1,8 +1,4 @@
-<script>
-  document.getElementById("menu-actions").innerHTML = "<li><a href='/delete-flag?name=<%= flag.name %>'' role='button' style='color:white;background-color: firebrick;''>Delete Flag</a></li>"
-  document.getElementById("menu-title").innerHTML = "<strong>Update Flag</strong>"
-</script>
-
+<article>
 <form action="/update-flag" method="POST">
 
   <!-- Grid -->
@@ -26,3 +22,28 @@
   <button type="submit">Update</button>
     
 </form>
+</article>
+<div id="modal-delete-flag" style="visibility: hidden;">
+  <article>
+    <table>
+      <tr>
+        <td><p style="font-size: xx-large;">Confirm Deletion</p></td>
+      </tr>
+      <tr>
+        <td>Delete : <strong><%= flag.name %></strong></td>
+      </tr>         
+    </table>
+    <footer>
+      <a href='/delete-flag?name=<%= flag.name %>'' role='button' style='color:white;background-color: firebrick;'>Delete</a>
+      <a href='#' onclick="closeModal()" role='button'>Cancel</a>
+    </footer>
+  </article>
+</div>
+<script>
+  document.getElementById("menu-title").innerHTML = "<strong>Update Flag</strong>"
+  document.getElementById("menu-actions").innerHTML = `
+    ${actionCreateFlag}
+    <li><a href='#' role='button' onclick='showModal()'' style='color:white;background-color: firebrick;''>Delete Flag</a></li>
+  `
+  setModal('modal-delete-flag')
+</script>

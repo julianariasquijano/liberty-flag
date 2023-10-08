@@ -2,7 +2,6 @@
     <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     </head>
-    <% if (typeof module=="undefined")var module="" %>
     <body>
         <nav>
             <ul>
@@ -30,9 +29,28 @@
                 <%= message %>
             </mark>
             </center>
-        <% }) %>  
-        <article>
-          <%- body %>
-        </article>       
+        <% }) %>
+        <script>
+          const actionCreateFlag="<li><a href='/create-flag'>Create</a></li>"
+          function setModal(incomingModalId) {
+            var incomingModal=document.getElementById(incomingModalId)
+            var generalModal=document.getElementById('modal-content')
+            generalModal.innerHTML = incomingModal.innerHTML 
+            //incomingModal.remove()
+          }          
+          function showModal() {
+            modalwindow.show()  
+          }
+          function closeModal() {
+            modalwindow.close()  
+          }          
+        </script> 
+        <dialog id="modalwindow">
+          <div><a onclick="modalwindow.close()" style="position: absolute;top: 0;left: 0;">[X]</a></div>
+          <center>
+            <div id="modal-content"/>
+        </center>
+        </dialog>               
+        <%- body %>
     </body>
 </html>
