@@ -22,7 +22,7 @@ app.use(async (ctx, next) => {
 
 render(app, {
   root: path.join(__dirname, 'views'),
-  layout: 'index',
+  layout: 'layout',
   viewExt: 'html',
   cache: false,
   debug: true
@@ -107,4 +107,4 @@ app
   .use(router.routes())
   .use(router.allowedMethods());
 
-app.listen(9000);
+app.listen(8000);
