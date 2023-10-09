@@ -6,20 +6,20 @@
 
     <!-- Markup example 1: input is inside label -->
     <label for="flag-name-disabled">
-      Flag name
+      <%= labels.flag %> <%= labels.name %>
       <input type="text" id="flag-name-disabled" name="flag-name-disabled" placeholder="Flag name" disabled value="<%= flag.name %>">
       <input type="hidden" name="flag-name" value="<%= flag.name %>">
     </label>
 
     <label for="flag-value">
-      Flag value
+      <%= labels.flag %> <%= labels.value %>
       <input type="text" id="flag-value" name="flag-value" placeholder="Flag value"  required value="<%= flag.value %>">
     </label>
 
   </div>
 
   <!-- Button -->
-  <button type="submit">Update</button>
+  <button type="submit"><%= labels.update %></button>
     
 </form>
 </article>
@@ -27,23 +27,23 @@
   <article>
     <table>
       <tr>
-        <td><p style="font-size: xx-large;">Confirm Deletion</p></td>
+        <td><p style="font-size: xx-large;"><%= labels.confirm %> <%= labels.deletion %></p></td>
       </tr>
       <tr>
-        <td>Delete : <strong><%= flag.name %></strong></td>
+        <td><%= labels.delete %> : <strong><%= flag.name %></strong></td>
       </tr>         
     </table>
     <footer>
-      <a href='/delete-flag?name=<%= flag.name %>'' role='button' style='color:white;background-color: firebrick;'>Delete</a>
+      <a href='/delete-flag?name=<%= flag.name %>'' role='button' style='color:white;background-color: firebrick;'><%= labels.delete %></a>
       <a href='#' onclick="closeModal()" role='button'>Cancel</a>
     </footer>
   </article>
 </div>
 <script>
-  document.getElementById("menu-title").innerHTML = "<strong>Update Flag</strong>"
+  document.getElementById("menu-title").innerHTML = "<strong><%= labels.update %> <%= labels.flag %></strong>"
   document.getElementById("menu-actions").innerHTML = `
     ${actionCreateFlag}
-    <li><a href='#' role='button' onclick='showModal()'' style='color:white;background-color: firebrick;''>Delete Flag</a></li>
+    <li><a href='#' role='button' onclick='showModal()'' style='color:white;background-color: firebrick;''><%= labels.delete %> <%= labels.flag %></a></li>
   `
   setModal('modal-delete-flag')
 </script>

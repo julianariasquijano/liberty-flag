@@ -16,13 +16,13 @@
           <ul id="menu-button-bar">
             <li>
               <details role="list">
-                  <summary aria-haspopup="listbox" role="link">Actions</summary>
+                  <summary aria-haspopup="listbox" role="link"><%= labels.actions %></summary>
                   <ul role="listbox" id="menu-actions"></ul>
               </details>                  
                 </details>                  
               </details>                  
             </li>
-            <li><a href="/flags">Flags</a></li>
+            <li><a href="/flags"><%= labels.flags %></a></li>
             <li></li>
           </ul>            
             </ul>            
@@ -39,7 +39,7 @@
             </center>
         <% }) %>
         <script>
-          const actionCreateFlag="<li><a href='/create-flag'>Create</a></li>"
+          const actionCreateFlag="<li><a href='/create-flag'><%= labels.create %></a></li>"
           function setModal(incomingModalId) {
             var incomingModal=document.getElementById(incomingModalId)
             var generalModal=document.getElementById('modal-content')

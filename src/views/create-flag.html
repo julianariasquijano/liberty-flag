@@ -1,5 +1,5 @@
 <script>
-  document.getElementById("menu-title").innerHTML = "<strong>Create Flag</strong>"
+  document.getElementById("menu-title").innerHTML = "<strong><%= labels.create %> <%= labels.flag %></strong>"
 </script>
 
 <article>
@@ -10,19 +10,19 @@
 
     <!-- Markup example 1: input is inside label -->
     <label for="flag-name">
-      Flag name
+      <%= labels.flag %> <%= labels.name %>
       <input type="text" id="flag-name" name="flag-name" required >
     </label>
 
     <label for="flag-value">
-      Flag value
+      <%= labels.flag %> <%= labels.value %>
       <input type="text" id="flag-value" name="flag-value" required>
     </label>
 
   </div>
 
   <!-- Button -->
-  <button role="button" type="submit">Create</button>
+  <button role="button" type="submit"><%= labels.create %></button>
     
 </form>
 </article>

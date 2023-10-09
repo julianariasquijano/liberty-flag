@@ -44,6 +44,7 @@ router.get('root', '/', async (ctx) => {
   let userId = ctx.session.userId || ""
   if (userId!==""){
     viewVars.flags = db.getFlags()
+    viewVars.messages = []
     return ctx.render('flags', viewVars);  
   }
   else {
@@ -55,13 +56,19 @@ router.get('root', '/', async (ctx) => {
 router.post('login', '/login',koaBody(), async (ctx,next) => {
 
   ctx.session.userId = "1234"
+  ctx.session.language = ctx.request.body.language
+  let languageLabels = require('./languages/'+ctx.session.language+'.js')
+  viewVars.labels = languageLabels.labels
+
   viewVars.flags = db.getFlags()
+  viewVars.messages = []
   return ctx.render('flags', viewVars);    
 
 })
 router.get('login', '/logout', async (ctx,next) => {
 
   ctx.session.userId = ""
+  viewVars.messages = []
   return ctx.render('login', viewVars);    
 
 })
@@ -69,12 +76,14 @@ router.get('login', '/logout', async (ctx,next) => {
 router.get('flags', '/flags', (ctx) => {
 
   viewVars.flags = db.getFlags()
+  viewVars.messages = []
   return ctx.render('flags', viewVars);  
 
 })
 
 router.get('create-flag', '/create-flag', (ctx) => {
 
+  viewVars.messages = []
   return ctx.render('create-flag', viewVars);  
 
 })
@@ -82,7 +91,7 @@ router.get('create-flag', '/create-flag', (ctx) => {
 router.post('create-flag', '/create-flag',  koaBody(),(ctx) => {
 
   viewVars.flag = db.createFlag(ctx.request.body)
-  viewVars.messages=['Created']
+  viewVars.messages=[viewVars.labels.created]
   return ctx.render('update-flag', viewVars); 
 
 })
@@ -90,14 +99,14 @@ router.post('create-flag', '/create-flag',  koaBody(),(ctx) => {
 router.get('update-flag', '/update-flag', (ctx) => {
 
   viewVars.flag = db.getFlag(ctx.request.query.name)
+  viewVars.messages = []
   return ctx.render('update-flag', viewVars);  
 
 })
 
 router.post('update-flag', '/update-flag',  koaBody(), (ctx) => {
   viewVars.flag = db.updateFlag(ctx.request.body)
-  viewVars.messages = ['Updated']
-
+  viewVars.messages = [viewVars.labels.updated]
   return ctx.render('update-flag', viewVars);  
 
 })
@@ -105,7 +114,7 @@ router.post('update-flag', '/update-flag',  koaBody(), (ctx) => {
 router.get('delete-flag', '/delete-flag', (ctx) => {
   db.deleteFlag(ctx.request.query.name)
   viewVars.flags=db.getFlags()
-  viewVars.messages = ['Flag '+ ctx.request.query.name +' Deleted']
+  viewVars.messages = [viewVars.labels.flag+' '+ ctx.request.query.name +' '+ viewVars.labels.deleted]
   return ctx.render('flags', viewVars);  
 
 })
