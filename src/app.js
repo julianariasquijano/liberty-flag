@@ -6,10 +6,15 @@ const render = require('koa-ejs');
 const path = require('path');
 var db = require('./db_handler.js');
 const { koaBody } = require('koa-body');
+const session = require('koa-session');
 
 const app = new Koa();
 const router = new Router();
 
+app.keys = ['lkaweob923jkpselld34k'];
+app.use(session(app))
+
+/*
 app.use(async (ctx, next) => {
   try {
     await next()
@@ -19,6 +24,7 @@ app.use(async (ctx, next) => {
     ctx.body = err.message;
   }
 });
+*/
 
 render(app, {
   root: path.join(__dirname, 'views'),
@@ -27,6 +33,31 @@ render(app, {
   cache: false,
   debug: true
 });
+
+router.get('root', '/', async (ctx) => {
+
+  //const userId = await parseCookie('user-id')(ctx)
+  let userId = ctx.session.userId || ""
+  if (userId!==""){
+    return ctx.render('flags', {
+      flags: db.getFlags()
+    });  
+  }
+  else {
+      return ctx.render('login', {
+    });     
+  }
+})
+
+router.post('login', '/login',koaBody(), async (ctx,next) => {
+
+  ctx.session.userId = "1234"
+  ctx.session.language = ctx.request.body.language
+  return ctx.render('flags', {
+    flags: db.getFlags()
+  });    
+
+})
 
 router.get('flags', '/flags', (ctx) => {
 

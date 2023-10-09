@@ -1,0 +1,41 @@
+<center>
+<article style="max-width: fit-content;">
+<form action="/login" method="POST">
+    <!-- Grid -->
+    <div class="grid">
+        
+        <!-- Markup example 1: input is inside label -->
+    <label for="user">
+        User
+        <input type="text" id="user" name="user" required >
+    </label>
+    
+    <label for="password">
+        Password
+        <input type="password" id="password" name="password" required>
+    </label>
+    <input type="hidden" id="language" name="language" value=english>
+
+  </div>
+
+  <!-- Button -->
+  <button role="button" type="submit">Login</button>
+    
+</form>
+</article>
+</center>
+<script>
+    document.getElementById("menu-title").innerHTML = "<strong>Login</strong>"
+    document.getElementById("menu-button-bar").innerHTML = `
+    <details role="list">
+        <summary aria-haspopup="listbox" role="link">Languages</summary>
+        <ul role="listbox" id="menu-actions">
+            <li><a href='#' onclick='document.getElementById("language").value="spanish"'>Español</a></li>
+            <li><a href='#' onclick='document.getElementById("language").value="german"'>Deutsch</a></li>
+            <li><a href='#' onclick='document.getElementById("language").value="japanese"'>日本語</a></li>
+        </ul>
+    </details>                  
+    </li>
+    <li></li>    
+  `
+  </script>
