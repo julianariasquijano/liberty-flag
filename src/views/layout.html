@@ -4,24 +4,32 @@
     </head>
     <body>
         <nav>
-            <ul>
-              <li></li>
-              <li><strong>Liberty Flags</strong></li>
-            </ul>
-            <ul>
-              <li id="menu-title"></li>
+          <ul>
+            <li></li>
+            <li><strong><%= labels.liberty %> <%= labels.flags %></strong></li>
+          </ul>
+          <ul>
+            <li id="menu-title"></li>
+          </ul>            
             </ul>            
-            <ul id="menu-button-bar">
-              <li>
-                <details role="list">
-                    <summary aria-haspopup="listbox" role="link">Actions</summary>
-                    <ul role="listbox" id="menu-actions"></ul>
+          </ul>            
+          <ul id="menu-button-bar">
+            <li>
+              <details role="list">
+                  <summary aria-haspopup="listbox" role="link">Actions</summary>
+                  <ul role="listbox" id="menu-actions"></ul>
+              </details>                  
                 </details>                  
-              </li>
-              <li><a href="/flags">Flags</a></li>
-              <li></li>
+              </details>                  
+            </li>
+            <li><a href="/flags">Flags</a></li>
+            <li></li>
+          </ul>            
             </ul>            
+          </ul>            
+        </nav>  
           </nav>        
+        </nav>  
         <% if (typeof messages=="undefined")var messages=[] %>
         <% messages.forEach( function(message) { %>
             <center>
