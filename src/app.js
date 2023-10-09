@@ -144,4 +144,4 @@ app
   .use(router.routes())
   .use(router.allowedMethods());
 
-app.listen(8000);
+app.listen(8000, '0.0.0.0');
