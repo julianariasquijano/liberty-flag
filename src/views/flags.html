@@ -1,12 +1,8 @@
-<script>
-  document.getElementById("menu-actions").innerHTML = "<li><a href='/create-flag'>Create</a></li>"
-  document.getElementById("menu-title").innerHTML = "<strong>Flags List</strong>"
-</script>
-
+<article>
 <table role="grid">
   <tr>
-      <th>Flag Name</th>
-      <th>Flag Value</th>
+      <th><%= labels.flag %> <%= labels.name %></th>
+      <th><%= labels.flag %> <%= labels.value %></th>
   </tr>
   <% flags.forEach( function(flag) { %>
     <tr>
@@ -23,3 +19,11 @@
     </tr>    
   <% }) %>
 </table>
+</article>
+<script>
+  document.getElementById("menu-title").innerHTML = "<strong><%= labels.flags %> <%= labels.list %></strong>"
+  document.getElementById("menu-actions").innerHTML = `
+  ${actionCreateFlag}
+  <li><a href='/logout'><%= labels.exit %></a></li>
+  `
+</script>

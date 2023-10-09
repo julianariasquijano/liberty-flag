@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    </head>
+    <body>
+        <nav>
+          <ul>
+            <li></li>
+            <li><strong><%= labels.liberty %> <%= labels.flags %></strong></li>
+          </ul>
+          <ul>
+            <li id="menu-title"></li>
+          </ul>            
+            </ul>            
+          </ul>            
+          <ul id="menu-button-bar">
+            <li>
+              <details role="list">
+                  <summary aria-haspopup="listbox" role="link"><%= labels.actions %></summary>
+                  <ul role="listbox" id="menu-actions"></ul>
+              </details>                  
+                </details>                  
+              </details>                  
+            </li>
+            <li><a href="/flags"><%= labels.flags %></a></li>
+            <li></li>
+          </ul>            
+            </ul>            
+          </ul>            
+        </nav>  
+          </nav>        
+        </nav>  
+        <% if (typeof messages=="undefined")var messages=[] %>
+        <% messages.forEach( function(message) { %>
+            <center>
+            <mark>
+                <%= message %>
+            </mark>
+            </center>
+        <% }) %>
+        <script>
+          const actionCreateFlag="<li><a href='/create-flag'><%= labels.create %></a></li>"
+          function setModal(incomingModalId) {
+            var incomingModal=document.getElementById(incomingModalId)
+            var generalModal=document.getElementById('modal-content')
+            generalModal.innerHTML = incomingModal.innerHTML 
+            //incomingModal.remove()
+          }          
+          function showModal() {
+            modalwindow.show()  
+          }
+          function closeModal() {
+            modalwindow.close()  
+          }          
+        </script> 
+        <dialog id="modalwindow">
+          <div><a onclick="modalwindow.close()" style="position: absolute;top: 0;left: 0;">[X]</a></div>
+          <center>
+            <div id="modal-content"/>
+        </center>
+        </dialog>
+        <main class="container" style="margin-top: 0px;">
+          <%- body %>
+        </main>
+    </body>
+</html>

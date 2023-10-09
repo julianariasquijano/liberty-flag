@@ -1,0 +1,16 @@
+exports.labels = {
+    liberty:"",
+    flags:"",
+    create:"",
+    created:"",
+    actions:"",
+    name:"",
+    value:"",
+    list:"",
+    update:"",
+    updated:"",
+    delete:"",
+    confirm:"",
+    deletion:"",
+    cancel:"",
+}
