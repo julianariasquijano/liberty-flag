@@ -58,6 +58,13 @@ router.post('login', '/login',koaBody(), async (ctx,next) => {
   });    
 
 })
+router.get('login', '/logout', async (ctx,next) => {
+
+  ctx.session.userId = ""
+  return ctx.render('login', {
+  });    
+
+})
 
 router.get('flags', '/flags', (ctx) => {
 
