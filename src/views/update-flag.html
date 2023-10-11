@@ -7,13 +7,13 @@
     <!-- Markup example 1: input is inside label -->
     <label for="flag-name-disabled">
       <%= labels.flag %> <%= labels.name %>
-      <input type="text" id="flag-name-disabled" name="flag-name-disabled" placeholder="Flag name" disabled value="<%= flag.name %>">
+      <input type="text" id="flag-name-disabled" name="flag-name-disabled"  disabled value="<%= flag.name %>">
       <input type="hidden" name="flag-name" value="<%= flag.name %>">
     </label>
 
     <label for="flag-value">
       <%= labels.flag %> <%= labels.value %>
-      <input type="text" id="flag-value" name="flag-value" placeholder="Flag value"  required value="<%= flag.value %>">
+      <input type="text" id="flag-value" name="flag-value"  required value="<%= flag.value %>">
     </label>
 
   </div>
