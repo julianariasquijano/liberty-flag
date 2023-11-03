@@ -4,7 +4,7 @@ const Koa = require('koa');
 const Router = require('@koa/router');
 const render = require('koa-ejs');
 const path = require('path');
-var db = require('./db_handler.js');
+var db = require('./mongodb_handler.js');
 const { koaBody } = require('koa-body');
 const session = require('koa-session');
 
@@ -43,7 +43,7 @@ router.get('root', '/', async (ctx) => {
 
   let userId = ctx.session.userId || ""
   if (userId!==""){
-    viewVars.flags = db.getFlags()
+    viewVars.flags = await db.getFlags()
     viewVars.messages = []
     return ctx.render('flags', viewVars);  
   }
@@ -53,19 +53,19 @@ router.get('root', '/', async (ctx) => {
   }
 })
 
-router.post('login', '/login',koaBody(), async (ctx,next) => {
+router.post('login', '/login',koaBody(), async (ctx) => {
 
   ctx.session.userId = "1234"
   ctx.session.language = ctx.request.body.language
   let languageLabels = require('./languages/'+ctx.session.language+'.js')
   viewVars.labels = languageLabels.labels
 
-  viewVars.flags = db.getFlags()
+  viewVars.flags = await db.getFlags()
   viewVars.messages = []
   return ctx.render('flags', viewVars);    
 
 })
-router.get('login', '/logout', async (ctx,next) => {
+router.get('logout', '/logout', async (ctx) => {
 
   ctx.session.userId = ""
   viewVars.messages = []
@@ -73,9 +73,9 @@ router.get('login', '/logout', async (ctx,next) => {
 
 })
 
-router.get('flags', '/flags', (ctx) => {
+router.get('flags', '/flags', async (ctx) => {
 
-  viewVars.flags = db.getFlags()
+  viewVars.flags = await db.getFlags()
   viewVars.messages = []
   return ctx.render('flags', viewVars);  
 
@@ -88,32 +88,32 @@ router.get('create-flag', '/create-flag', (ctx) => {
 
 })
 
-router.post('create-flag', '/create-flag',  koaBody(),(ctx) => {
+router.post('create-flag', '/create-flag',  koaBody(), async (ctx) => {
 
-  viewVars.flag = db.createFlag(ctx.request.body)
+  viewVars.flag = await db.createFlag(ctx.request.body)
   viewVars.messages=[viewVars.labels.created]
   return ctx.render('update-flag', viewVars); 
 
 })
 
-router.get('update-flag', '/update-flag', (ctx) => {
+router.get('update-flag', '/update-flag', async (ctx) => {
 
-  viewVars.flag = db.getFlag(ctx.request.query.name)
+  viewVars.flag = await db.getFlag(ctx.request.query.name)
   viewVars.messages = []
   return ctx.render('update-flag', viewVars);  
 
 })
 
-router.post('update-flag', '/update-flag',  koaBody(), (ctx) => {
-  viewVars.flag = db.updateFlag(ctx.request.body)
+router.post('update-flag', '/update-flag',  koaBody(), async (ctx) => {
+  viewVars.flag = await db.updateFlag(ctx.request.body)
   viewVars.messages = [viewVars.labels.updated]
   return ctx.render('update-flag', viewVars);  
 
 })
 
-router.get('delete-flag', '/delete-flag', (ctx) => {
-  db.deleteFlag(ctx.request.query.name)
-  viewVars.flags=db.getFlags()
+router.get('delete-flag', '/delete-flag', async (ctx) => {
+  await db.deleteFlag(ctx.request.query.name)
+  viewVars.flags= await db.getFlags()
   viewVars.messages = [viewVars.labels.flag+' '+ ctx.request.query.name +' '+ viewVars.labels.deleted]
   return ctx.render('flags', viewVars);  
 

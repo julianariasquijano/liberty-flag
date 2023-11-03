@@ -65,6 +65,8 @@
     "mime-db": "^1.52.0",
     "mime-types": "^2.1.35",
     "minimatch": "^3.1.2",
+    "mongo-sync": "^2.0.1",
+    "mongodb": "^6.2.0",
     "ms": "^2.1.2",
     "negotiator": "^0.6.3",
     "nodemon": "^3.0.1",
