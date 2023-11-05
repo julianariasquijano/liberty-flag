@@ -103,3 +103,96 @@ const deleteFlag = async function (flagName){
 
 }
 exports.deleteFlag = deleteFlag
+
+const createBucket = async function (data){
+
+  await client.connect();
+  db = client.db("liberty-flag");
+
+  await db.collection('buckets').insertOne({
+      bucket_name: data["bucket-name"],
+      bucket_value: data["bucket-value"]
+  })
+
+  await client.close()
+  return await getBucket(data["bucket-name"])
+}
+exports.createBucket = createBucket
+
+const getBuckets = async function (){
+  var list = [];
+  let document = {}
+
+  try {
+    await client.connect();
+    db = client.db("liberty-flag");    
+    const cursor = await db.collection('buckets').find({});
+
+
+    while (await cursor.hasNext()) {
+        document = await cursor.next();
+        list.push({
+            name: document.bucket_name,
+            value: document.bucket_value
+        });       
+    }
+  } catch (error) {
+    
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+
+  return list;
+}
+exports.getBuckets = getBuckets
+
+const getBucket = async function (bucketName){
+
+  var result = {};
+
+  await client.connect();
+  db = client.db("liberty-flag");    
+  const cursor = await db.collection('buckets').find({ bucket_name: bucketName });
+
+  let document = {}
+  while (await cursor.hasNext()) {
+      document = await cursor.next();
+      result = {
+          name: document.bucket_name,
+          value: document.bucket_value
+      };          
+  }    
+    
+  await client.close()
+  return result;
+
+}
+exports.getBucket = getBucket
+
+const updateBucket = async function (data){
+  await client.connect();
+  db = client.db("liberty-flag")
+  const buckets = db.collection("buckets");   
+  const result = await buckets.replaceOne({ 
+    bucket_name: data["bucket-name"] }, //filter
+    { //document
+      bucket_name: data["bucket-name"],
+      bucket_value: data["bucket-value"]
+    }, 
+    {upsert: false} //options
+  )
+  return await getBucket(data["bucket-name"])
+}
+exports.updateBucket = updateBucket
+
+const deleteBucket = async function (bucketName){
+
+  await client.connect();
+  db = client.db("liberty-flag")
+  const buckets = db.collection("buckets");   
+  const result = await buckets.deleteOne({ bucket_name: bucketName })
+  return await getBucket(bucketName)
+
+}
+exports.deleteBucket = deleteBucket

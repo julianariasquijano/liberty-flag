@@ -1,6 +1,8 @@
 exports.labels = {
     liberty:"Liberty",
     flags:"Flags",
+    bucket:"Bucket",
+    buckets:"Buckets",
     flag:"Flag",
     create:"Create",
     created:"Created",

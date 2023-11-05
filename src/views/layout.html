@@ -23,6 +23,7 @@
                 </details>                  
               </details>                  
             </li>
+            <li><a href="/buckets"><%= labels.buckets %></a></li>
             <li><a href="/flags"><%= labels.flags %></a></li>
             <li></li>
           </ul>            
@@ -38,7 +39,8 @@
             </center>
         <% }) %>
         <script>
-          const actionCreateFlag="<li><a href='/create-flag'><%= labels.create %></a></li>"
+          const actionCreateBucket="<li><a href='/create-bucket'><%= labels.create %> <%= labels.bucket %></a></li>"
+          const actionCreateFlag="<li><a href='/create-flag'><%= labels.create %> <%= labels.flag %></a></li>"
           function setModal(incomingModalId) {
             var incomingModal=document.getElementById(incomingModalId)
             var generalModal=document.getElementById('modal-content')

@@ -1,0 +1,44 @@
+<article>
+<form action="/update-bucket" method="POST">
+
+  <!-- Grid -->
+  <div class="grid">
+
+    <!-- Markup example 1: input is inside label -->
+    <label for="bucket-name-disabled">
+      <%= labels.bucket %> <%= labels.name %>
+      <input type="text" id="bucket-name-disabled" name="bucket-name-disabled"  disabled value="<%= bucket.name %>">
+      <input type="hidden" name="bucket-name" value="<%= bucket.name %>">
+    </label>
+
+  </div>
+
+  <!-- Button -->
+  <button type="submit"><%= labels.update %></button>
+    
+</form>
+</article>
+<div id="modal-delete-bucket" style="visibility: hidden;">
+  <article>
+    <table>
+      <tr>
+        <td><p style="font-size: xx-large;"><%= labels.confirm %> <%= labels.deletion %></p></td>
+      </tr>
+      <tr>
+        <td><%= labels.delete %> : <strong><%= bucket.name %></strong></td>
+      </tr>         
+    </table>
+    <footer>
+      <a href='/delete-bucket?name=<%= bucket.name %>'' role='button' style='color:white;background-color: firebrick;'><%= labels.delete %></a>
+      <a href='#' onclick="closeModal()" role='button'><%= labels.cancel %></a>
+    </footer>
+  </article>
+</div>
+<script>
+  document.getElementById("menu-title").innerHTML = "<strong><%= labels.update %> <%= labels.bucket %></strong>"
+  document.getElementById("menu-actions").innerHTML = `
+    ${actionCreateBucket}
+    <li><a href='#' role='button' onclick='showModal()'' style='color:white;background-color: firebrick;''><%= labels.delete %> <%= labels.bucket %></a></li>
+  `
+  setModal('modal-delete-bucket')
+</script>

@@ -1,0 +1,23 @@
+<script>
+  document.getElementById("menu-title").innerHTML = "<strong><%= labels.create %> <%= labels.bucket %></strong>"
+</script>
+
+<article>
+<form action="/create-bucket" method="POST">
+
+  <!-- Grid -->
+  <div class="grid">
+
+    <!-- Markup example 1: input is inside label -->
+    <label for="bucket-name">
+      <%= labels.bucket %> <%= labels.name %>
+      <input type="text" id="bucket-name" name="bucket-name" required >
+    </label>
+
+  </div>
+
+  <!-- Button -->
+  <button role="button" type="submit"><%= labels.create %></button>
+    
+</form>
+</article>

@@ -1,0 +1,20 @@
+<article>
+<table role="grid">
+  <tr>
+      <th><%= labels.bucket %> <%= labels.name %></th>
+
+  </tr>
+  <% buckets.forEach( function(bucket) { %>
+    <tr>
+      <td><a href="/update-bucket?name=<%= bucket.name %>"> <%= bucket.name %></a></td>
+    </tr>    
+  <% }) %>
+</table>
+</article>
+<script>
+  document.getElementById("menu-title").innerHTML = "<strong><%= labels.buckets %> <%= labels.list %></strong>"
+  document.getElementById("menu-actions").innerHTML = `
+  ${actionCreateBucket}
+  <li><a href='/logout'><%= labels.exit %></a></li>
+  `
+</script>
