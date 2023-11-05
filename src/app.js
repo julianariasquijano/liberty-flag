@@ -5,11 +5,9 @@ const Router = require('@koa/router');
 const render = require('koa-ejs');
 const path = require('path');
 var db = require('./mongodb_handler.js');
-const { koaBody } = require('koa-body');
 const session = require('koa-session');
 
 const app = new Koa();
-const router = new Router();
 
 app.keys = ['lkaweob923jkpselld34k'];
 app.use(session(app))
