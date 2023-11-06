@@ -19,13 +19,18 @@
               <details role="list">
                   <summary aria-haspopup="listbox" role="link"><%= labels.actions %></summary>
                   <ul role="listbox" id="menu-actions"></ul>
-              </details>                  
-                </details>                  
-              </details>                  
+              </details>                                 
             </li>
-            <li><a href="/buckets"><%= labels.buckets %></a></li>
-            <li><a href="/flags"><%= labels.flags %></a></li>
-            <li><a href="/tags"><%= labels.tags %></a></li>
+            <li>
+              <details role="list">
+                  <summary aria-haspopup="listbox" role="link">Modules</summary>
+                  <ul role="listbox" id="menu-modules">
+                    <li><a href='/buckets'><%= labels.buckets %></a></li>
+                    <li><a href='/tags'><%= labels.tags %></a></li>
+                    <li><a href='/flags'><%= labels.flags %></a></li>
+                  </ul>
+              </details>                                 
+            </li>
             <li></li>
           </ul>            
             </ul>            
@@ -40,7 +45,7 @@
             </center>
         <% }) %>
         <script>
-          const actionCreateFlag="<li><a href='/create-bucket'><%= labels.create %> <%= labels.flag %></a></li>"
+          const actionCreateFlag="<li><a href='/create-flag'><%= labels.create %> <%= labels.flag %></a></li>"
           const actionCreateBucket="<li><a href='/create-bucket'><%= labels.create %> <%= labels.bucket %></a></li>"
           const actionCreateTag="<li><a href='/create-tag'><%= labels.create %> <%= labels.tag %></a></li>"
           function setModal(incomingModalId) {
