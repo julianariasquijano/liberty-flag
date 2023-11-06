@@ -1,0 +1,44 @@
+<article>
+<form action="/update-tag" method="POST">
+
+  <!-- Grid -->
+  <div class="grid">
+
+    <!-- Markup example 1: input is inside label -->
+    <label for="tag-name-disabled">
+      <%= labels.tag %> <%= labels.name %>
+      <input type="text" id="tag-name-disabled" name="tag-name-disabled"  disabled value="<%= tag.name %>">
+      <input type="hidden" name="tag-name" value="<%= tag.name %>">
+    </label>
+
+  </div>
+
+  <!-- Button -->
+  <button type="submit"><%= labels.update %></button>
+    
+</form>
+</article>
+<div id="modal-delete-tag" style="visibility: hidden;">
+  <article>
+    <table>
+      <tr>
+        <td><p style="font-size: xx-large;"><%= labels.confirm %> <%= labels.deletion %></p></td>
+      </tr>
+      <tr>
+        <td><%= labels.delete %> : <strong><%= tag.name %></strong></td>
+      </tr>         
+    </table>
+    <footer>
+      <a href='/delete-tag?name=<%= tag.name %>'' role='button' style='color:white;background-color: firebrick;'><%= labels.delete %></a>
+      <a href='#' onclick="closeModal()" role='button'><%= labels.cancel %></a>
+    </footer>
+  </article>
+</div>
+<script>
+  document.getElementById("menu-title").innerHTML = "<strong><%= labels.update %> <%= labels.tag %></strong>"
+  document.getElementById("menu-actions").innerHTML = `
+    ${actionCreateTag}
+    <li><a href='#' role='button' onclick='showModal()'' style='color:white;background-color: firebrick;''><%= labels.delete %> <%= labels.tag %></a></li>
+  `
+  setModal('modal-delete-tag')
+</script>

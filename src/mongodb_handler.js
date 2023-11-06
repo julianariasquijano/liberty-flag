@@ -196,3 +196,92 @@ const deleteBucket = async function (bucketName){
 
 }
 exports.deleteBucket = deleteBucket
+
+const createTag = async function (data){
+
+  await client.connect();
+  db = client.db("liberty-flag");
+
+  await db.collection('tags').insertOne({
+      tag_name: data["tag-name"]
+  })
+
+  await client.close()
+  return await getTag(data["tag-name"])
+}
+exports.createTag = createTag
+
+const getTags = async function (){
+  var list = [];
+  let document = {}
+
+  try {
+    await client.connect();
+    db = client.db("liberty-flag");    
+    const cursor = await db.collection('tags').find({});
+
+
+    while (await cursor.hasNext()) {
+        document = await cursor.next();
+        list.push({
+            name: document.tag_name
+        });       
+    }
+  } catch (error) {
+    
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+
+  return list;
+}
+exports.getTags = getTags
+
+const getTag = async function (tagName){
+
+  var result = {};
+
+  await client.connect();
+  db = client.db("liberty-flag");    
+  const cursor = await db.collection('tags').find({ tag_name: tagName });
+
+  let document = {}
+  while (await cursor.hasNext()) {
+      document = await cursor.next();
+      result = {
+          name: document.tag_name
+      };          
+  }    
+    
+  await client.close()
+  return result;
+
+}
+exports.getTag = getTag
+
+const updateTag = async function (data){
+  await client.connect();
+  db = client.db("liberty-flag")
+  const tags = db.collection("tags");   
+  const result = await tags.replaceOne({ 
+    bucket_name: data["tag-name"] }, //filter
+    { //document
+      tag_name: data["tag-name"]
+    }, 
+    {upsert: false} //options
+  )
+  return await getTag(data["tag-name"])
+}
+exports.updateTag = updateTag
+
+const deleteTag = async function (tagName){
+
+  await client.connect();
+  db = client.db("liberty-flag")
+  const tags = db.collection("tags");   
+  const result = await tags.deleteOne({ tag_name: tagName })
+  return await getTag(tagName)
+
+}
+exports.deleteTag = deleteTag

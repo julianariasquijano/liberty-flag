@@ -1,0 +1,23 @@
+<script>
+  document.getElementById("menu-title").innerHTML = "<strong><%= labels.create %> <%= labels.tag %></strong>"
+</script>
+
+<article>
+<form action="/create-tag" method="POST">
+
+  <!-- Grid -->
+  <div class="grid">
+
+    <!-- Markup example 1: input is inside label -->
+    <label for="tag-name">
+      <%= labels.tag %> <%= labels.name %>
+      <input type="text" id="tag-name" name="tag-name" required >
+    </label>
+
+  </div>
+
+  <!-- Button -->
+  <button role="button" type="submit"><%= labels.create %></button>
+    
+</form>
+</article>

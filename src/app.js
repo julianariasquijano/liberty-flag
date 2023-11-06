@@ -37,6 +37,10 @@ var bucketsRouter = require ('./routes/buckets.js')(viewVars,db);
 app.use(bucketsRouter.routes())
 app.use(bucketsRouter.allowedMethods())
 
+var tagsRouter = require ('./routes/tags.js')(viewVars,db);
+app.use(tagsRouter.routes())
+app.use(tagsRouter.allowedMethods())
+
 var bucketsRouter = require ('./routes/main.js')(viewVars,db);
 app.use(bucketsRouter.routes())
 app.use(bucketsRouter.allowedMethods())

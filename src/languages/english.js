@@ -8,6 +8,8 @@ exports.labels = {
     created:"Created",
     actions:"Actions",
     name:"Name",
+    tag:"Tag",
+    tags:"Tags",
     value:"Value",
     list:"List",
     update:"Update",
