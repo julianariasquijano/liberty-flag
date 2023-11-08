@@ -16,20 +16,20 @@ module.exports = function(viewVars,db) {
     }
     else {
         
-        return ctx.render('login', viewVars);     
+        return ctx.render('./login', viewVars);     
     }
   })
   
-  router.post('login', '/login',koaBody(), async (ctx) => {
+  router.post('/login',koaBody(), async (ctx) => {
   
     ctx.session.userId = "1234"
     ctx.session.language = ctx.request.body.language
     let languageLabels = require('../languages/'+ctx.session.language+'.js')
     viewVars.labels = languageLabels.labels
   
-    viewVars.flags = await db.getFlags()
+    viewVars.buckets = await db.getBuckets()
     viewVars.messages = []
-    return ctx.render('flags/flags', viewVars);    
+    return ctx.render('buckets/buckets', viewVars);    
   
   })
   router.get('logout', '/logout', async (ctx) => {
