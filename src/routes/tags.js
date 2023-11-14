@@ -1,4 +1,4 @@
-module.exports = function(viewVars,db) {
+module.exports = function(viewVars,db,util) {
 
   'use strict';
 

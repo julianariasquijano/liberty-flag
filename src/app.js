@@ -4,7 +4,8 @@ const Koa = require('koa');
 const Router = require('@koa/router');
 const render = require('koa-ejs');
 const path = require('path');
-var db = require('./mongodb_handler.js');
+var db = require('./mongodb_handler');
+var util = require('./utilities');
 const session = require('koa-session');
 
 const app = new Koa();
@@ -17,6 +18,7 @@ viewVars.labels = {}
 
 app.use(async (ctx, next) => {
   try {
+    viewVars.breadcrumb = []
     let language = ctx.session.language || "english"
     viewVars.language = language
     let languageLabels = require('./languages/'+language+'.js')
@@ -29,15 +31,15 @@ app.use(async (ctx, next) => {
   }
 });
 
-var flagsRouter = require ('./routes/flags.js')(viewVars,db);
+var flagsRouter = require ('./routes/flags.js')(viewVars,db,util);
 app.use(flagsRouter.routes())
 app.use(flagsRouter.allowedMethods())
 
-var bucketsRouter = require ('./routes/buckets.js')(viewVars,db);
+var bucketsRouter = require ('./routes/buckets.js')(viewVars,db,util);
 app.use(bucketsRouter.routes())
 app.use(bucketsRouter.allowedMethods())
 
-var tagsRouter = require ('./routes/tags.js')(viewVars,db);
+var tagsRouter = require ('./routes/tags.js')(viewVars,db,util);
 app.use(tagsRouter.routes())
 app.use(tagsRouter.allowedMethods())
 
