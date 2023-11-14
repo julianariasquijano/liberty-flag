@@ -18,7 +18,7 @@ viewVars.labels = {}
 
 app.use(async (ctx, next) => {
   try {
-    viewVars.breadcrumb = []
+    viewVars.breadcrumbs = []
     let language = ctx.session.language || "english"
     viewVars.language = language
     let languageLabels = require('./languages/'+language+'.js')

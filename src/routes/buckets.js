@@ -7,9 +7,9 @@ module.exports = function(viewVars,db,util) {
   const router = new Router();
 
   router.get('/buckets', async (ctx) => {
-    let breadcrumb = [{label:"Buckets",url:"/buckets"}]
-    ctx.session.breadcrumb = JSON.stringify(breadcrumb)
-    viewVars.breadcrumb = breadcrumb
+    let breadcrumbs = [{label:"Buckets",url:"/buckets"}]
+    ctx.session.breadcrumbs = JSON.stringify(breadcrumbs)
+    viewVars.breadcrumbs = breadcrumbs
     viewVars.buckets = await db.getBuckets()
     viewVars.messages = []
     return ctx.render('buckets/buckets', viewVars);  
@@ -18,9 +18,9 @@ module.exports = function(viewVars,db,util) {
   
   router.get('/create-bucket', (ctx) => {
   
-    let breadcrumb = [{label:"Create Bucket",url:"/create-bucket"}]
-    ctx.session.breadcrumb = JSON.stringify(breadcrumb)
-    viewVars.breadcrumb = breadcrumb    
+    let breadcrumbs = [{label:"Create Bucket",url:"/create-bucket"}]
+    ctx.session.breadcrumbs = JSON.stringify(breadcrumbs)
+    viewVars.breadcrumbs = breadcrumbs    
     viewVars.messages = []
     return ctx.render('buckets/create-bucket', viewVars);  
   
@@ -36,7 +36,7 @@ module.exports = function(viewVars,db,util) {
   
   router.get('update-bucket', '/update-bucket', async (ctx) => {
     let newBreadcrumb = {label:"Bucket",url:"/update-bucket?name="+ctx.request.query.name}
-    viewVars.breadcrumb = util.setBreadcrumbCookieList (ctx,newBreadcrumb)
+    viewVars.breadcrumbs = util.setBreadcrumbCookieList (ctx,newBreadcrumb)
     viewVars.bucket = await db.getBucket(ctx.request.query.name)
     viewVars.messages = []
     return ctx.render('buckets/update-bucket', viewVars);  

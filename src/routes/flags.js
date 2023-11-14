@@ -10,7 +10,7 @@ module.exports = function(viewVars,db,util) {
   router.get('flags', '/flags', async (ctx) => {
   
     let newBreadcrumb = {label:"Bucket Flags",url:"/flags?bucket_name="+ctx.request.query.bucket_name}
-    viewVars.breadcrumb = util.setBreadcrumbCookieList (ctx,newBreadcrumb)
+    viewVars.breadcrumbs = util.setBreadcrumbCookieList (ctx,newBreadcrumb)
     viewVars.flags = await db.getFlags()
     viewVars.messages = []
     return ctx.render('flags/flags', viewVars);  
@@ -20,7 +20,7 @@ module.exports = function(viewVars,db,util) {
   router.get('create-flag', '/create-flag', (ctx) => {
   
     let newBreadcrumb = {label:"Create Flag",url:"/create-flag"}
-    viewVars.breadcrumb = util.setBreadcrumbCookieList (ctx,newBreadcrumb)
+    viewVars.breadcrumbs = util.setBreadcrumbCookieList (ctx,newBreadcrumb)
     viewVars.messages = []
     return ctx.render('flags/create-flag', viewVars);  
   

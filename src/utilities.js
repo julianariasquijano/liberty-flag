@@ -2,14 +2,17 @@
 
 function setBreadcrumbCookieList (ctx,newBreadcrumb){
 
-    let breadcrumb = JSON.parse(ctx.session.breadcrumb)
+    if(typeof ctx.session.breadcrumbs === "undefined"){
+      ctx.session.breadcrumbs = JSON.stringify([])
+    }
+    let breadcrumbs = JSON.parse(ctx.session.breadcrumbs)
    
     let stringifiedNewBreadcrumb = JSON.stringify(newBreadcrumb)
     let breadcrumbElementExists = false
     let breadcrumbElementCounter = 0
-    for (let breadcrumbIndex = 0; breadcrumbIndex < breadcrumb.length; breadcrumbIndex++) {
+    for (let breadcrumbIndex = 0; breadcrumbIndex < breadcrumbs.length; breadcrumbIndex++) {
 
-      if(JSON.stringify(breadcrumb[breadcrumbIndex]) === stringifiedNewBreadcrumb){
+      if(JSON.stringify(breadcrumbs[breadcrumbIndex]) === stringifiedNewBreadcrumb){
         breadcrumbElementExists = true
         breadcrumbElementCounter = breadcrumbIndex
         break
@@ -18,19 +21,19 @@ function setBreadcrumbCookieList (ctx,newBreadcrumb){
     }
     
     if(!breadcrumbElementExists){
-      breadcrumb.push(newBreadcrumb)
+      breadcrumbs.push(newBreadcrumb)
       
     }
     else {
       let tempList = []
       for (let index = 0; index <= breadcrumbElementCounter; index++) {
-        tempList.push(breadcrumb[index])
+        tempList.push(breadcrumbs[index])
         
       }
-      breadcrumb = tempList
+      breadcrumbs = tempList
     }
-    ctx.session.breadcrumb = JSON.stringify(breadcrumb);
-    return breadcrumb
+    ctx.session.breadcrumbs = JSON.stringify(breadcrumbs);
+    return breadcrumbs
     
 }
 exports.setBreadcrumbCookieList = setBreadcrumbCookieList

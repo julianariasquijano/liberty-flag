@@ -27,6 +27,9 @@ module.exports = function(viewVars,db) {
     let languageLabels = require('../languages/'+ctx.session.language+'.js')
     viewVars.labels = languageLabels.labels
   
+    let breadcrumbs = [{label:"Buckets",url:"/buckets"}]
+    ctx.session.breadcrumbs = JSON.stringify(breadcrumbs)
+    viewVars.breadcrumbs = breadcrumbs
     viewVars.buckets = await db.getBuckets()
     viewVars.messages = []
     return ctx.render('buckets/buckets', viewVars);    
