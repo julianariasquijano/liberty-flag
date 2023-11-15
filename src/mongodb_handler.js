@@ -13,28 +13,32 @@ const client = new MongoClient(mongoUri, {
 
 const createFlag = async function (data){
 
-    await client.connect();
-    db = client.db("liberty-flag");
+  let bucket = await getBucket(data["bucket_name"])
+
+  await client.connect();
+  db = client.db("liberty-flag");
 
     await db.collection('flags').insertOne({
         flag_name: data["flag-name"],
-        flag_value: data["flag-value"]
-    })
+        flag_value: data["flag-value"],
+        bucket_id: bucket._id.toString()
+      })
 
     await client.close()
     return await getFlag(data["flag-name"])
 }
 exports.createFlag = createFlag
 
-const getFlags = async function (){
+const getFlags = async function (bucketName){
     var list = [];
     let document = {}
+
+    let bucket = await getBucket(bucketName)
 
     try {
       await client.connect();
       db = client.db("liberty-flag");    
-      const cursor = await db.collection('flags').find({});
-  
+      const cursor = await db.collection('flags').find({bucket_id:bucket._id.toString()}); 
   
       while (await cursor.hasNext()) {
           document = await cursor.next();
@@ -159,6 +163,7 @@ const getBucket = async function (bucketName){
   while (await cursor.hasNext()) {
       document = await cursor.next();
       result = {
+          _id: document._id,
           name: document.bucket_name,
           value: document.bucket_value
       };          

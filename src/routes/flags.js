@@ -11,7 +11,8 @@ module.exports = function(viewVars,db,util) {
   
     let newBreadcrumb = {label:"Bucket Flags",url:"/flags?bucket_name="+ctx.request.query.bucket_name}
     viewVars.breadcrumbs = util.setBreadcrumbCookieList (ctx,newBreadcrumb)
-    viewVars.flags = await db.getFlags()
+    viewVars.flags = await db.getFlags(ctx.request.query.bucket_name)
+    viewVars.bucket = await db.getBucket(ctx.request.query.bucket_name)
     viewVars.messages = []
     return ctx.render('flags/flags', viewVars);  
   
@@ -21,6 +22,7 @@ module.exports = function(viewVars,db,util) {
   
     let newBreadcrumb = {label:"Create Flag",url:"/create-flag"}
     viewVars.breadcrumbs = util.setBreadcrumbCookieList (ctx,newBreadcrumb)
+    viewVars.bucket_name = ctx.request.query.bucket_name
     viewVars.messages = []
     return ctx.render('flags/create-flag', viewVars);  
   
