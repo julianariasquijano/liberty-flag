@@ -71,7 +71,8 @@ const getFlag = async function (flagName){
         document = await cursor.next();
         result = {
             name: document.flag_name,
-            value: document.flag_value
+            value: document.flag_value,
+            bucket_id: document.bucket_id
         };          
     }    
       
@@ -82,6 +83,7 @@ const getFlag = async function (flagName){
 exports.getFlag = getFlag
 
 const updateFlag = async function (data){
+    let flag = await getFlag(data["flag-name"])
     await client.connect();
     db = client.db("liberty-flag")
     const flags = db.collection("flags");   
@@ -89,7 +91,8 @@ const updateFlag = async function (data){
       flag_name: data["flag-name"] }, //filter
       { //document
         flag_name: data["flag-name"],
-        flag_value: data["flag-value"]
+        flag_value: data["flag-value"],
+        bucket_id: flag.bucket_id
       }, 
       {upsert: false} //options
     )
