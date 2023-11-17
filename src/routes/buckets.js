@@ -18,9 +18,8 @@ module.exports = function(viewVars,db,util) {
   
   router.get('/create-bucket', (ctx) => {
   
-    let breadcrumbs = [{label:"Create Bucket",url:"/create-bucket"}]
-    ctx.session.breadcrumbs = JSON.stringify(breadcrumbs)
-    viewVars.breadcrumbs = breadcrumbs    
+    let newBreadcrumb = {label:"Create Bucket",url:"/create-bucket"}
+    viewVars.breadcrumbs = util.setBreadcrumbCookieList (ctx,newBreadcrumb)  
     viewVars.messages = []
     return ctx.render('buckets/create-bucket', viewVars);  
   
