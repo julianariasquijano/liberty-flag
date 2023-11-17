@@ -10,6 +10,9 @@ module.exports = function(viewVars,db) {
 
     let userId = ctx.session.userId || ""
     if (userId!==""){
+      let breadcrumbs = [{label:"Buckets",url:"/buckets"}]
+      ctx.session.breadcrumbs = JSON.stringify(breadcrumbs)
+      viewVars.breadcrumbs = breadcrumbs      
       viewVars.buckets = await db.getBuckets()
       viewVars.messages = []
       return ctx.render('buckets/buckets', viewVars);  
