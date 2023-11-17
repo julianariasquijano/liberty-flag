@@ -32,12 +32,16 @@ module.exports = function(viewVars,db,util) {
   
     viewVars.flag = await db.createFlag(ctx.request.body)
     viewVars.messages=[viewVars.labels.created]
+    let newBreadcrumb = {label:"Update Flag",url:"/update-flag?name="+ctx.request.body["flag-name"]}
+    viewVars.breadcrumbs = util.setBreadcrumbCookieList (ctx,newBreadcrumb,2)
     return ctx.render('flags/update-flag', viewVars); 
   
   })
   
   router.get('update-flag', '/update-flag', async (ctx) => {
   
+    let newBreadcrumb = {label:"Update Flag",url:"/update-flag?name="+ctx.request.query.name}
+    viewVars.breadcrumbs = util.setBreadcrumbCookieList (ctx,newBreadcrumb)
     viewVars.flag = await db.getFlag(ctx.request.query.name)
     viewVars.messages = []
     return ctx.render('flags/update-flag', viewVars);  
@@ -46,6 +50,8 @@ module.exports = function(viewVars,db,util) {
   
   router.post('update-flag', '/update-flag',  koaBody(), async (ctx) => {
     viewVars.flag = await db.updateFlag(ctx.request.body)
+    let newBreadcrumb = {label:"Update Flag",url:"/update-flag?name="+ctx.request.body["flag-name"]}
+    viewVars.breadcrumbs = util.setBreadcrumbCookieList (ctx,newBreadcrumb,2)    
     viewVars.messages = [viewVars.labels.updated]
     return ctx.render('flags/update-flag', viewVars);  
   
