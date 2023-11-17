@@ -42,6 +42,7 @@ module.exports = function(viewVars,db,util) {
   
     let newBreadcrumb = {label:"Update Flag",url:"/update-flag?name="+ctx.request.query.name}
     viewVars.breadcrumbs = util.setBreadcrumbCookieList (ctx,newBreadcrumb)
+    viewVars.bucket = await db.getBucket(ctx.request.query["bucket-name"])
     viewVars.flag = await db.getFlag(ctx.request.query.name)
     viewVars.messages = []
     return ctx.render('flags/update-flag', viewVars);  
@@ -60,6 +61,9 @@ module.exports = function(viewVars,db,util) {
   router.get('delete-flag', '/delete-flag', async (ctx) => {
     await db.deleteFlag(ctx.request.query.name)
     viewVars.flags= await db.getFlags()
+    viewVars.breadcrumbs = util.setBreadcrumbCookieList (ctx,"",2)
+    viewVars.flags = await db.getFlags(ctx.request.query["bucket-name"])
+    viewVars.bucket = await db.getBucket(ctx.request.query["bucket-name"])    
     viewVars.messages = [viewVars.labels.flag+' '+ ctx.request.query.name +' '+ viewVars.labels.deleted]
     return ctx.render('flags/flags', viewVars);  
   
