@@ -42,7 +42,6 @@
 <script>
   document.getElementById("menu-title").innerHTML = "<strong><%= labels.update %> <%= labels.flag %></strong>"
   document.getElementById("menu-actions").innerHTML = `
-    ${actionCreateFlag}
     <li><a href='#' role='button' onclick='showModal()'' style='color:white;background-color: firebrick;''><%= labels.delete %> <%= labels.flag %></a></li>
   `
   setModal('modal-delete-flag')

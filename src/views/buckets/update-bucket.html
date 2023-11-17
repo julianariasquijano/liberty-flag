@@ -42,7 +42,6 @@
 <script>
   document.getElementById("menu-title").innerHTML = "<strong><%= labels.update %> <%= labels.bucket %></strong>"
   document.getElementById("menu-actions").innerHTML = `
-    ${actionCreateBucket}
     <li><a href='#' role='button' onclick='showModal()'' style='color:white;background-color: firebrick;''><%= labels.delete %> <%= labels.bucket %></a></li>
   `
   setModal('modal-delete-bucket')
