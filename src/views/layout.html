@@ -45,9 +45,9 @@
         <% if (typeof messages=="undefined")var messages=[] %>
         <% messages.forEach( function(message) { %>
             <center>
-            <mark>
-                <%= message %>
-            </mark>
+            <div class="alert alert-warning" role="alert" style="width:fit-content;padding: 7px;">
+              <%= message %>
+            </div>
             </center>
         <% }) %>
         <script>
