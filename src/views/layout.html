@@ -72,8 +72,12 @@
         <main class="container" style="margin-top: 0px;">     
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <% breadcrumbs.forEach( function(link) { %>
-              <li class="breadcrumb-item"><a href="<%= link.url %>"><%= link.label %></a></li>
+              <% breadcrumbs.forEach( function(link,index) { %>
+                <% if (index == breadcrumbs.length -1) { %>
+                  <li class="breadcrumb-item active"><%= link.label %></li>
+                <% } else { %>
+                  <li class="breadcrumb-item"><a href="<%= link.url %>"><%= link.label %></a></li>
+                <% } %>
               <% }) %>
             </ol>
           </nav>          
