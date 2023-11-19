@@ -1,4 +1,10 @@
 <article>
+  <div style="text-align: right;">
+    <div class="btn-group" role="group" aria-label="Create">
+      <a href="/create-bucket" type="button" class="btn btn-outline-primary">Create</a>
+    </div>
+  </div>
+  <br>  
 <table role="grid">
   <tr>
       <th><%= labels.bucket %> <%= labels.name %></th>
@@ -14,7 +20,6 @@
 <script>
   document.getElementById("menu-title").innerHTML = "<strong><%= labels.buckets %> <%= labels.list %></strong>"
   document.getElementById("menu-actions").innerHTML = `
-  ${actionCreateBucket}
   <li><a href='/logout'><%= labels.exit %></a></li>
   `
 </script>
