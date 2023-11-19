@@ -27,6 +27,8 @@ module.exports = function(viewVars,db,util) {
   
   router.post('/create-bucket',  koaBody(), async (ctx) => {
   
+    let newBreadcrumb = {label:"Bucket",url:"/update-bucket?name="+ctx.request.body["bucket-name"]}
+    viewVars.breadcrumbs = util.setBreadcrumbCookieList (ctx,newBreadcrumb,0)
     viewVars.bucket = await db.createBucket(ctx.request.body)
     viewVars.messages=[viewVars.labels.created]
     return ctx.render('buckets/update-bucket', viewVars); 
