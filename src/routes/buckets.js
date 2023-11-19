@@ -53,6 +53,9 @@ module.exports = function(viewVars,db,util) {
   })
   
   router.get('delete-bucket', '/delete-bucket', async (ctx) => {
+    let breadcrumbs = [{label:"Buckets",url:"/buckets"}]
+    ctx.session.breadcrumbs = JSON.stringify(breadcrumbs)
+    viewVars.breadcrumbs = breadcrumbs    
     await db.deleteBucket(ctx.request.query.name)
     viewVars.buckets= await db.getBuckets()
     viewVars.messages = [viewVars.labels.bucket+' '+ ctx.request.query.name +' '+ viewVars.labels.deleted]
