@@ -1,27 +1,40 @@
 <article>
-<div style="text-align: right;">
-  <div class="btn-group" role="group" aria-label="Flags">
-    <a href="/flags?bucket_name=<%= bucket.name %>" type="button" class="btn btn-outline-primary">Flags</a>
+  <div style="text-align: right;">
+    <div class="btn-group" role="group" aria-label="Flags">
+      <a href="/flags?bucket_name=<%= bucket.name %>" type="button" class="btn btn-outline-primary">Flags</a>
+    </div>
   </div>
-</div>
-<form action="/update-bucket" method="POST">
+  <form action="/update-bucket" method="POST">
 
-  <!-- Grid -->
-  <div class="grid">
+    <!-- Grid -->
+    <div class="grid">
 
-    <!-- Markup example 1: input is inside label -->
-    <label for="bucket-name-disabled">
-      <%= labels.bucket %> <%= labels.name %>
-      <input type="text" id="bucket-name-disabled" name="bucket-name-disabled"  disabled value="<%= bucket.name %>">
-      <input type="hidden" name="bucket-name" value="<%= bucket.name %>">
-    </label>
+      <!-- Markup example 1: input is inside label -->
+      <label for="bucket-name-disabled">
+        <%= labels.bucket %> <%= labels.name %>
+        <input type="text" id="bucket-name-disabled" name="bucket-name-disabled"  disabled value="<%= bucket.name %>">
+        <input type="hidden" name="bucket-name" value="<%= bucket.name %>">
+        <input type="hidden" id="bucket-contexts" name="bucket-contexts" value="<%= JSON.stringify(bucket.contexts) %>">
+      </label>
 
-  </div>
+    </div>
 
-  <!-- Button -->
-  <button type="submit"><%= labels.update %></button>
-    
-</form>
+    <details open>
+      <summary role="button" style="background-color: cornflowerblue">Contexts List </summary>
+      <div style="text-align: right;">
+        <div class="btn-group" role="group" aria-label="Flags">
+          <a href="#" type="button" onclick="setModal('modal-bucket-contexts');showModal();showContexts();addContextsBoxListener()" class="btn" style="background-color: cornflowerblue;color: white">Edit</a>
+  
+        </div>
+      </div>    
+      <ul id="contexts-list-form"></ul>
+    </details>    
+
+    <!-- Button -->
+    <button type="submit"><%= labels.update %></button>
+      
+  </form>
+
 </article>
 <div id="modal-delete-bucket" style="visibility: hidden;">
   <article>
@@ -39,10 +52,105 @@
     </footer>
   </article>
 </div>
+<div id="modal-bucket-contexts" style="visibility: hidden;">
+  <article>
+    <table>
+      <tr>
+        <td><p style="font-size: xx-large;">Contexts</p></td>
+      </tr>      
+      <tr>
+        <td>
+          <div style="text-align: right;">
+            <div class="btn-group" role="group" aria-label="Operations">
+              <a href="#" id="add-context-button" type="button" onclick="addContext()" class="btn btn-outline-primary btn-sm" >+</a>
+            </div>
+          </div>
+          <br>
+          <input type="text" id="context-box" placeholder="Context Name">                 
+        </td>
+      </tr>     
+      <tr>
+        <td>
+          <ul id="contexts-list-modal"></ul>
+        </td>
+      </tr>         
+    </table>
+    <footer>
+      <a href='#' onclick="closeModal()" role='button'>Close</a>
+    </footer>
+  </article>
+</div>
 <script>
+  let contexts = []
+  try {
+    contexts = JSON.parse("<%= JSON.stringify(bucket.contexts) %>".replace(/&#34;/g,'"').replace(/^"|"$/gm,'')) || []
+    
+  } catch (error) {}
+  showContexts()
   document.getElementById("menu-title").innerHTML = "<strong><%= labels.update %> <%= labels.bucket %></strong>"
   document.getElementById("menu-actions").innerHTML = `
-    <li><a href='#' role='button' onclick='showModal()'' style='color:white;background-color: firebrick;''><%= labels.delete %> <%= labels.bucket %></a></li>
+    <li><a href='#' role='button' onclick='setModal("modal-delete-bucket");showModal()' style='color:white;background-color: firebrick;'><%= labels.delete %> <%= labels.bucket %></a></li>
   `
-  setModal('modal-delete-bucket')
+  function addContext() {
+    let contextBox = document.getElementById("context-box")
+    contexts.push({name:contextBox.value})
+    contextBox.value = ""
+    showContexts()
+
+  }
+
+  function deleteContext(contextName) {
+
+    let tempList = []
+    for (let index = 0; index < contexts.length; index++) {
+      element = contexts[index];
+      if (element.name != contextName) {
+        tempList.push(element)
+      }
+
+    }
+
+    contexts = tempList
+    showContexts()
+    
+  }
+
+  function showContexts() {
+
+    let contextsListForm = document.getElementById("contexts-list-form")
+    let tempVar = ""
+    contextsListForm.innerHTML=""
+    
+    for (index = 0; index < contexts.length; index++) {
+      element = contexts[index];
+      tempVar = `<li>${element.name}</li>`
+      contextsListForm.innerHTML=contextsListForm.innerHTML + tempVar
+      
+    }
+
+    let contextsListModal = document.getElementById("contexts-list-modal")
+    tempVar = ""
+    contextsListModal.innerHTML=""
+
+    for (let index = 0; index < contexts.length; index++) {
+      const element = contexts[index];
+      tempVar = `<li><i class="bi bi-trash" onclick="deleteContext('${element.name}')"></i> - ${element.name}</li>`
+      contextsListModal.innerHTML=contextsListModal.innerHTML + tempVar
+
+    }
+
+    document.getElementById("bucket-contexts").value=JSON.stringify(contexts)
+    
+  }
+
+  function addContextsBoxListener() {
+    document.getElementById("context-box")
+      .addEventListener("keyup", function(event) {
+      event.preventDefault();
+      if (event.keyCode === 13) {
+          document.getElementById("add-context-button").click();
+      }
+    });    
+  }
+
 </script>

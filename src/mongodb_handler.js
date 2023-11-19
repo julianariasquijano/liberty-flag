@@ -168,7 +168,8 @@ const getBucket = async function (bucketName){
       result = {
           _id: document._id,
           name: document.bucket_name,
-          value: document.bucket_value
+          value: document.bucket_value,
+          contexts: document.bucket_contexts
       };          
   }    
     
@@ -186,7 +187,8 @@ const updateBucket = async function (data){
     bucket_name: data["bucket-name"] }, //filter
     { //document
       bucket_name: data["bucket-name"],
-      bucket_value: data["bucket-value"]
+      bucket_value: data["bucket-value"],
+      bucket_contexts: data["bucket-contexts"]
     }, 
     {upsert: false} //options
   )
