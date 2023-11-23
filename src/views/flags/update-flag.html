@@ -13,11 +13,12 @@
     </label>
 
     <label for="flag-type">
-      <%= labels.flag %> Type %>
-      <select id="flag-type" >
-        <option value="bool">Boolean</option>
-        <option value="list">List</option>
-        <option value="text">Text</option>
+      <%= labels.flag %> Type
+      
+      <select id="flag-type" name="flag-type" >
+        <option value="bool" <% if (flag.type == "bool") { %> selected <% } %> >Boolean</option>
+        <option value="list" <% if (flag.type == "list") { %> selected <% } %> >List</option>
+        <option value="text" <% if (flag.type == "text") { %> selected <% } %> >Text</option>
       </select>      
     </label>
 
@@ -213,7 +214,18 @@
         }
         widget = `<input id='value.${element.id}' type='checkbox' ${contextValue} role='switch'  />`
       } else if (flagType.value == "list"){
-        widget = `<select id='value.${element.id}'></select>`
+        var selectOptionsHtml = ""
+        var selectOptions = document.getElementById("flag-options").value.split("|")
+        for (let selectOptionsIndex = 0; selectOptionsIndex < selectOptions.length; selectOptionsIndex++) {
+          const selectOption = selectOptions[selectOptionsIndex];
+          var selectOptionSelected=""
+          if (element.value == selectOption) {
+            selectOptionSelected = "selected"
+          }
+          selectOptionsHtml = selectOptionsHtml + `<option value="${selectOption}" ${selectOptionSelected} >${selectOption}</option>`
+          
+        }
+        widget = `<select id='value.${element.id}'>${selectOptionsHtml}</select>`
       } else if (flagType.value == "text"){
         widget = `<input id='value.${element.id}' type='text' value="${element.value}" />`
         
