@@ -20,7 +20,8 @@ const createFlag = async function (data){
 
     await db.collection('flags').insertOne({
         flag_name: data["flag-name"],
-        flag_value: data["flag-value"],
+        flag_type: data["flag-type"],
+        flag_options: data["flag-options"],
         bucket_id: bucket._id.toString()
       })
 
@@ -43,8 +44,10 @@ const getFlags = async function (bucketName){
       while (await cursor.hasNext()) {
           document = await cursor.next();
           list.push({
+              bucket_id: document.bucket_id,
               name: document.flag_name,
-              value: document.flag_value
+              type: document.flag_type,
+              options: document.flag_options
           });       
       }
     } catch (error) {
@@ -70,9 +73,10 @@ const getFlag = async function (flagName){
     while (await cursor.hasNext()) {
         document = await cursor.next();
         result = {
+            bucket_id: document.bucket_id,
             name: document.flag_name,
-            value: document.flag_value,
-            bucket_id: document.bucket_id
+            type: document.flag_type,
+            options: document.flag_options
         };          
     }    
       
@@ -90,9 +94,11 @@ const updateFlag = async function (data){
     const result = await flags.replaceOne({ 
       flag_name: data["flag-name"] }, //filter
       { //document
+        bucket_id: flag.bucket_id,
         flag_name: data["flag-name"],
-        flag_value: data["flag-value"],
-        bucket_id: flag.bucket_id
+        flag_type: data["flag-type"],
+        flag_options: data["flag-options"]
+
       }, 
       {upsert: false} //options
     )
@@ -169,7 +175,7 @@ const getBucket = async function (bucketName){
           _id: document._id,
           name: document.bucket_name,
           value: document.bucket_value,
-          contexts: document.bucket_contexts
+          contexts: JSON.parse(document.bucket_contexts)
       };          
   }    
     

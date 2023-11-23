@@ -9,17 +9,40 @@
       <%= labels.flag %> <%= labels.name %>
       <input type="text" id="flag-name-disabled" name="flag-name-disabled"  disabled value="<%= flag.name %>">
       <input type="hidden" name="flag-name" value="<%= flag.name %>">
+      <input type="hidden" id="flag-values" name="flag-values" value="<%= flag.values %>">
     </label>
 
-    <label for="flag-value">
-      <%= labels.flag %> <%= labels.value %>
-      <input type="text" id="flag-value" name="flag-value"  required value="<%= flag.value %>">
+    <label for="flag-type">
+      <%= labels.flag %> Type %>
+      <select id="flag-type" >
+        <option value="bool">Boolean</option>
+        <option value="list">List</option>
+        <option value="text">Text</option>
+      </select>      
+    </label>
+
+    <label for="flag-options">
+      <%= labels.flag %> Options %>
+      <input type="text" id="flag-options" name="flag-options"  value="<%= flag.options %>">
     </label>
 
   </div>
 
+  <details open>
+    <summary role="button" style="background-color: cornflowerblue">Values</summary>
+    <article>
+      <div style="text-align: right;">
+        <div class="btn-group" role="group" aria-label="Flags">
+          <a href="#" type="button" onclick="setModal('modal-flag-values');showModal();showValues()" class="btn" style="background-color: cornflowerblue;color: white">Configure</a>
+  
+        </div>
+      </div>        
+    <ul id="values-list-form"></ul>
+    </article>  
+  </details>      
+
   <!-- Button -->
-  <button type="submit"><%= labels.update %></button>
+  <button type="submit" onmouseover="prepareValues()"><%= labels.update %></button>
     
 </form>
 </article>
@@ -39,10 +62,164 @@
     </footer>
   </article>
 </div>
+<div id="modal-flag-values" style="visibility: hidden;">
+  <article>
+    <table>
+      <tr>
+        <td><p style="font-size: xx-large;">Configure Values</p></td>
+      </tr>      
+      <tr>
+        <td>
+          <div style="text-align: right;">
+            <div class="btn-group" role="group" aria-label="Operations">
+              <a href="#" id="add-context-button" type="button" onclick="addValue()" class="btn btn-outline-primary btn-sm" >+</a>
+            </div>
+          </div>
+          <br>
+          <span style="font-size: larger;">Add Contexts combinations</span>
+          <br>
+          <br>
+          <select multiple id="value-contexts" >
+            <% if (bucket.contexts.constructor.name == "Array") { %>
+              <% bucket.contexts.forEach(element => { %>
+                  <option value="<%= element.name %>"><%= element.name %></option>
+              <% }) %>
+              
+            <% } %>
+          </select>
+        </td>
+      </tr>     
+      <tr>
+        <td>
+          <ul id="values-list-modal"></ul>
+        </td>
+      </tr>         
+    </table>
+    <footer>
+      <a href='#' onclick="closeModal()" role='button'>Close</a>
+    </footer>
+  </article>
+</div>
 <script>
+  String.prototype.hashCode = function() {
+    var hash = 0,
+      i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+      chr = this.charCodeAt(i);
+      hash = ((hash << 5) - hash) + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+  }
+
+  let values = []
+  try {
+    values = JSON.parse("<%= JSON.stringify(flag.values) %>".replace(/&#34;/g,'"').replace(/^"|"$/gm,'')) || []
+    
+  } catch (error) {}
+  showValues()
+
   document.getElementById("menu-title").innerHTML = "<strong><%= labels.update %> <%= labels.flag %></strong>"
   document.getElementById("menu-actions").innerHTML = `
-    <li><a href='#' role='button' onclick='showModal()'' style='color:white;background-color: firebrick;''><%= labels.delete %> <%= labels.flag %></a></li>
+    <li><a href='#' role='button' onclick='setModal("modal-delete-flag");showModal()' style='color:white;background-color: firebrick;'><%= labels.delete %> <%= labels.flag %></a></li>
   `
   setModal('modal-delete-flag')
+
+  function addValue() {
+    let valueContexts = document.getElementById("value-contexts")
+    let contextsList = Array.from(valueContexts.selectedOptions).map(v=>v.value)
+    values.push({
+      contexts:contextsList,
+      id:JSON.stringify(contextsList).hashCode()
+    })
+
+    valueContexts.value = ""
+
+    showValues() 
+
+  }
+
+  function prepareValues() {
+
+    for (let index = 0; index < values.length; index++) {
+      element = values[index];
+      if (JSON.stringify(element.contexts).hashCode() != value) {
+        tempList.push(element)
+      }
+
+    }
+    document.getElementById("flag-values").value=JSON.stringify(values)
+    
+  }
+
+  function deleteValue(id) {
+
+    let tempList = []
+    for (let index = 0; index < values.length; index++) {
+      element = values[index];
+      if (element.id != id) {
+        tempList.push(element)
+      }
+
+    }
+
+    values = tempList
+    showValues()
+    
+  }
+
+  function showValues() {
+
+    let valuesListForm = document.getElementById("values-list-form")
+    let tempVar = ""
+    let tempContextVar = ""
+    valuesListForm.innerHTML=""
+    
+    for (index = 0; index < values.length; index++) {
+      var element = values[index];
+      tempContextVar = ""
+      for (let contextIndex = 0; contextIndex < element.contexts.length; contextIndex++) {
+        const context = element.contexts[contextIndex]
+        tempContextVar = `${tempContextVar} <span class="badge text-bg-success" style="margin:inherit">${context}</span>`
+        
+      }
+      var flagType = document.getElementById("flag-type")
+      var widget = ""
+      if (flagType.value == "bool") {
+        widget = "<input type='checkbox' role='switch' />"
+      } else if (flagType.value == "list"){
+        widget = "<select></select>"
+      } else if (flagType.value == "text"){
+        widget = "<input type='text' />"
+        
+      }
+
+      tempVar = `<li>${tempContextVar} <br> ${widget} </li>`
+      valuesListForm.innerHTML=valuesListForm.innerHTML + tempVar
+      
+    }
+
+    let valuesListModal = document.getElementById("values-list-modal")
+    tempVar = ""
+    valuesListModal.innerHTML=""
+
+    for (let index = 0; index < values.length; index++) {
+      element = values[index];
+      tempContextVar = ""
+      for (let contextIndex = 0; contextIndex < element.contexts.length; contextIndex++) {
+        const context = element.contexts[contextIndex]
+        tempContextVar = `${tempContextVar} <span class="badge text-bg-success">${context}</span>`
+        
+      }
+      
+      tempVar = `<li><i class="bi bi-trash" onclick="deleteValue('${element.id}')"></i> - ${tempContextVar}</li>`
+      valuesListModal.innerHTML=valuesListModal.innerHTML + tempVar
+
+    }
+
+    document.getElementById("flag-values").value=JSON.stringify(values)
+    
+  }
+
 </script>
