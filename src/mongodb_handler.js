@@ -22,6 +22,7 @@ const createFlag = async function (data){
         flag_name: data["flag-name"],
         flag_type: data["flag-type"],
         flag_options: data["flag-options"],
+        flag_values: data["flag-values"],
         bucket_id: bucket._id.toString()
       })
 
@@ -76,7 +77,8 @@ const getFlag = async function (flagName){
             bucket_id: document.bucket_id,
             name: document.flag_name,
             type: document.flag_type,
-            options: document.flag_options
+            options: document.flag_options,
+            values: document.flag_values
         };          
     }    
       
@@ -97,6 +99,7 @@ const updateFlag = async function (data){
         bucket_id: flag.bucket_id,
         flag_name: data["flag-name"],
         flag_type: data["flag-type"],
+        flag_values: data["flag-values"],
         flag_options: data["flag-options"]
 
       }, 

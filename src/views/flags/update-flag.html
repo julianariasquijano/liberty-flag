@@ -142,13 +142,29 @@
 
   function prepareValues() {
 
+    let contextValueWidget = ""
+    let contextFinalValue = ""
+
     for (let index = 0; index < values.length; index++) {
-      element = values[index];
-      if (JSON.stringify(element.contexts).hashCode() != value) {
-        tempList.push(element)
+      element = values[index]
+      contextValueWidget = document.getElementById(`value.${element.id}`)
+      if (contextValueWidget.type == "checkbox") {
+        if (contextValueWidget.checked) {
+          contextFinalValue = "1"
+          
+        } else {
+          contextFinalValue = "0"
+          
+        }
+      }
+      else{
+        contextFinalValue = contextValueWidget.value
       }
 
+      element.value = contextFinalValue
+        
     }
+
     document.getElementById("flag-values").value=JSON.stringify(values)
     
   }
@@ -174,6 +190,7 @@
     let valuesListForm = document.getElementById("values-list-form")
     let tempVar = ""
     let tempContextVar = ""
+    let contextValue = ""
     valuesListForm.innerHTML=""
     
     for (index = 0; index < values.length; index++) {
@@ -187,11 +204,18 @@
       var flagType = document.getElementById("flag-type")
       var widget = ""
       if (flagType.value == "bool") {
-        widget = "<input type='checkbox' role='switch' />"
+        if (element.value == "1") {
+          contextValue = "checked"
+          
+        } else {
+          contextValue = ""
+          
+        }
+        widget = `<input id='value.${element.id}' type='checkbox' ${contextValue} role='switch'  />`
       } else if (flagType.value == "list"){
-        widget = "<select></select>"
+        widget = `<select id='value.${element.id}'></select>`
       } else if (flagType.value == "text"){
-        widget = "<input type='text' />"
+        widget = `<input id='value.${element.id}' type='text' value="${element.value}" />`
         
       }
 
