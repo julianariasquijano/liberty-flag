@@ -44,6 +44,7 @@ module.exports = function(viewVars,db,util) {
     viewVars.breadcrumbs = util.setBreadcrumbCookieList (ctx,newBreadcrumb)
     viewVars.bucket = await db.getBucket(ctx.request.query["bucket-name"])
     viewVars.flag = await db.getFlag(ctx.request.query.name)
+    viewVars.tags = await db.getTags()
     viewVars.messages = []
     return ctx.render('flags/update-flag', viewVars);  
   

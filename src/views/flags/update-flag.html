@@ -10,6 +10,7 @@
       <input type="text" id="flag-name-disabled" name="flag-name-disabled"  disabled value="<%= flag.name %>">
       <input type="hidden" name="flag-name" value="<%= flag.name %>">
       <input type="hidden" id="flag-values" name="flag-values" value="<%= flag.values %>">
+      <input type="hidden" id="flag-tags" name="flag-tags" value="<%= flag.tags %>">
     </label>
 
     <label for="flag-type">
@@ -40,7 +41,20 @@
       </div>        
     <ul id="values-list-form"></ul>
     </article>  
-  </details>      
+  </details>  
+  
+  <details open>
+    <summary role="button" style="background-color: cadetblue">Tags</summary>
+    <article>
+      <div style="text-align: right;">
+        <div class="btn-group" role="group" aria-label="Tags">
+          <a href="#" type="button" onclick="setModal('modal-tag-values');showModal();showTags()" class="btn" style="background-color: cadetblue;color: white">Configure</a>
+  
+        </div>
+      </div>        
+    <div id="tags-list-form"></div>
+    </article>  
+  </details>    
 
   <!-- Button -->
   <button type="submit" onmouseover="prepareValues()"><%= labels.update %></button>
@@ -101,6 +115,41 @@
     </footer>
   </article>
 </div>
+<div id="modal-tag-values" style="visibility: hidden;">
+  <article>
+    <table>
+      <tr>
+        <td><p style="font-size: xx-large;">Configure Tags</p></td>
+      </tr>      
+      <tr>
+        <td>
+          <div style="text-align: right;">
+            <div class="btn-group" role="group" aria-label="Operations">
+              <a href="#" id="add-context-button" type="button" onclick="addTag()" class="btn btn-outline-primary btn-sm" >+</a>
+            </div>
+          </div>
+          <br>
+          <span style="font-size: larger;">Add Tags</span>
+          <br>
+          <br>
+          <select multiple id="tags" >
+              <% tags.forEach(element => { %>
+                  <option value="<%= element.name %>"><%= element.name %></option>
+              <% }) %>
+          </select>
+        </td>
+      </tr>     
+      <tr>
+        <td>
+          <ul id="tags-list-modal"></ul>
+        </td>
+      </tr>         
+    </table>
+    <footer>
+      <a href='#' onclick="closeModal()" role='button'>Close</a>
+    </footer>
+  </article>
+</div>
 <script>
   String.prototype.hashCode = function() {
     var hash = 0,
@@ -119,7 +168,16 @@
     values = JSON.parse("<%= JSON.stringify(flag.values) %>".replace(/&#34;/g,'"').replace(/^"|"$/gm,'')) || []
     
   } catch (error) {}
+
+  let tags = []
+  try {
+    tags = JSON.parse("<%= JSON.stringify(flag.tags) %>".replace(/&#34;/g,'"').replace(/^"|"$/gm,'')) || []
+    
+  } catch (error) {}
+
+  
   showValues()
+  showTags()
 
   document.getElementById("menu-title").innerHTML = "<strong><%= labels.update %> <%= labels.flag %></strong>"
   document.getElementById("menu-actions").innerHTML = `
@@ -245,7 +303,7 @@
       tempContextVar = ""
       for (let contextIndex = 0; contextIndex < element.contexts.length; contextIndex++) {
         const context = element.contexts[contextIndex]
-        tempContextVar = `${tempContextVar} <span class="badge text-bg-success">${context}</span>`
+        tempContextVar = `${tempContextVar} <span class="badge text-bg-primary">${context}</span>`
         
       }
       
@@ -258,4 +316,42 @@
     
   }
 
+  function addTag() {
+    let tagsWidget = document.getElementById("tags")
+    tags = tags.concat(Array.from(tagsWidget.selectedOptions).map(v=>v.value))
+
+    showTags() 
+
+  }
+
+  function deleteTag(tagName) {
+
+    tags = tags.filter(e => e !== tagName)
+    showTags()
+    
+  }
+  
+  function showTags() {
+    
+    let tagsListForm = document.getElementById("tags-list-form")
+    let tagsListModal = document.getElementById("tags-list-modal")
+
+    let tempVar = ""
+    let modalTempVar = ""
+
+    tagsListForm.innerHTML=""
+    tagsListModal.innerHTML=""
+    
+    for (index = 0; index < tags.length; index++) {
+      var element = tags[index]
+      tempVar = `${tempVar} <li><span class="badge text-bg-success" style="margin:inherit">${element}</span> </li>`
+      modalTempVar = `${modalTempVar} <li><i class="bi bi-trash" onclick="deleteTag('${element}')"></i> <span class="badge text-bg-success" style="margin:inherit">${element}</span> </li>`
+    }
+
+    tagsListForm.innerHTML= tempVar
+    tagsListModal.innerHTML=  modalTempVar      
+
+    document.getElementById("flag-tags").value=JSON.stringify(tags)
+    
+  }
 </script>
