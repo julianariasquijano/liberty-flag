@@ -9,6 +9,8 @@ koa
     npm install better-sqlite3
     npm install koa-session
     npm install mongodb
+    npm install koa-static
+    npm install koa-mount
 
     node src/index.js
     npm start

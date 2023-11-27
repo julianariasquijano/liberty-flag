@@ -7,6 +7,8 @@ const path = require('path');
 var db = require('./mongodb_handler');
 var util = require('./utilities');
 const session = require('koa-session');
+const mount = require('koa-mount')
+const serve = require('koa-static')
 
 const app = new Koa();
 
@@ -31,6 +33,7 @@ app.use(async (ctx, next) => {
   }
 });
 
+app.use(mount('/static',serve(path.join(__dirname, '/static'))))
 var flagsRouter = require ('./routes/flags.js')(viewVars,db,util);
 app.use(flagsRouter.routes())
 app.use(flagsRouter.allowedMethods())
