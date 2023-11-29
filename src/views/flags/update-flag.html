@@ -35,7 +35,7 @@
     <article>
       <div style="text-align: right;">
         <div class="btn-group" role="group" aria-label="Flags">
-          <a href="#" type="button" onclick="setModal('modal-flag-values');showModal();showValues()" class="btn" style="background-color: cornflowerblue;color: white">Configure</a>
+          <a href="#" type="button" onclick="setModal('modal-flag-values');showModal();prepareValuesModal();showValues()" class="btn" style="background-color: cornflowerblue;color: white">Configure</a>
   
         </div>
       </div>        
@@ -197,6 +197,13 @@
 
     showValues() 
 
+  }
+
+  function prepareValuesModal() {
+    var select_element = document.getElementById("value-contexts");
+    multi(select_element, {
+      //search_placeholder: 'Search fruits...',
+    });    
   }
 
   function prepareValues() {
