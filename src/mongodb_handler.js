@@ -78,7 +78,8 @@ const getFlag = async function (flagName){
             name: document.flag_name,
             type: document.flag_type,
             options: document.flag_options,
-            values: document.flag_values
+            values: document.flag_values,
+            tags: document.flag_tags
         };          
     }    
       
@@ -100,6 +101,7 @@ const updateFlag = async function (data){
         flag_name: data["flag-name"],
         flag_type: data["flag-type"],
         flag_values: data["flag-values"],
+        flag_tags: data["flag-tags"],
         flag_options: data["flag-options"]
 
       }, 
