@@ -1,65 +1,96 @@
 <article>
-<form action="/update-flag" method="POST">
+  <form action="/update-flag" method="POST">
 
-  <!-- Grid -->
-  <div class="grid">
+    <!-- Grid -->
+    <div class="mb-3">
 
-    <!-- Markup example 1: input is inside label -->
-    <label for="flag-name-disabled">
-      <%= labels.flag %> <%= labels.name %>
-      <input type="text" id="flag-name-disabled" name="flag-name-disabled"  disabled value="<%= flag.name %>">
+      <!-- Markup example 1: input is inside label -->
+      <label for="flag-name-disabled">
+        <%= labels.flag %>
+          <%= labels.name %>
+      </label>
+      <input class="form-control" type="text" id="flag-name-disabled" name="flag-name-disabled" disabled
+        value="<%= flag.name %>">
       <input type="hidden" name="flag-name" value="<%= flag.name %>">
       <input type="hidden" id="flag-values" name="flag-values" value="<%= flag.values %>">
       <input type="hidden" id="flag-tags" name="flag-tags" value="<%= flag.tags %>">
-    </label>
 
-    <label for="flag-type">
-      <%= labels.flag %> Type
-      
-      <select id="flag-type" name="flag-type" >
-        <option value="bool" <% if (flag.type == "bool") { %> selected <% } %> >Boolean</option>
-        <option value="list" <% if (flag.type == "list") { %> selected <% } %> >List</option>
-        <option value="text" <% if (flag.type == "text") { %> selected <% } %> >Text</option>
-      </select>      
-    </label>
+      <label for="flag-type">
+        <%= labels.flag %> Type
 
-    <label for="flag-options">
-      <%= labels.flag %> Options %>
-      <input type="text" id="flag-options" name="flag-options"  value="<%= flag.options %>">
-    </label>
+          <select class="form-control" id="flag-type" name="flag-type">
+            <option value="bool" <% if (flag.type=="bool" ) { %> selected <% } %> >Boolean</option>
+            <option value="list" <% if (flag.type=="list" ) { %> selected <% } %> >List</option>
+            <option value="text" <% if (flag.type=="text" ) { %> selected <% } %> >Text</option>
+          </select>
+      </label>
 
-  </div>
+      <div class="mb-3">
+        <label for="flag-options">
+          <%= labels.flag %> Options
+        </label>
+        <input class="form-control" type="text" id="flag-options" name="flag-options" value="<%= flag.options %>">
+      </div>
 
-  <details open>
-    <summary role="button" style="background-color: cornflowerblue">Values</summary>
-    <article>
-      <div style="text-align: right;">
-        <div class="btn-group" role="group" aria-label="Flags">
-          <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#modal-flag-values" onclick="showValues()" class="btn" style="background-color: cornflowerblue;color: white">Configure</a>
-  
+    </div>
+    <div class="accordion" id="configSections">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+            aria-controls="panelsStayOpen-collapseOne">
+            Values
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+          <div class="accordion-body">
+            <article>
+              <div style="text-align: right;">
+                <div class="btn-group" role="group" aria-label="Flags">
+                  <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#modal-flag-values"
+                    onclick="showValues()" class="btn"
+                    style="background-color: cornflowerblue;color: white">Configure</a>
+
+                </div>
+              </div>
+              <ul id="values-list-form"></ul>
+            </article>
+          </div>
         </div>
-      </div>        
-    <ul id="values-list-form"></ul>
-    </article>  
-  </details>  
-  
-  <details open>
-    <summary role="button" style="background-color: cadetblue">Tags</summary>
-    <article>
-      <div style="text-align: right;">
-        <div class="btn-group" role="group" aria-label="Tags">
-          <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#modal-flag-tags" onclick="showTags()" class="btn" style="background-color: cadetblue;color: white">Configure</a>
-  
-        </div>
-      </div>        
-    <div id="tags-list-form"></div>
-    </article>  
-  </details>    
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
+            aria-controls="panelsStayOpen-collapseTwo">
+            Tags
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
+          <div class="accordion-body">
+            <article>
+              <div style="text-align: right;">
+                <div class="btn-group" role="group" aria-label="Tags">
+                  <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#modal-flag-tags"
+                    onclick="showTags()" class="btn" style="background-color: cadetblue;color: white">Configure</a>
 
-  <!-- Button -->
-  <button type="submit" onmouseover="prepareValues()"><%= labels.update %></button>
-    
-</form>
+                </div>
+              </div>
+              <div id="tags-list-form"></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <!-- Button -->
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary" type="submit" onmouseover="prepareValues()">
+        <%= labels.update %>
+      </button>
+    </div>
+  </form>
 </article>
 <div id="modal-delete-flag" class="modal" tabindex="-1">
   <div class="modal-dialog">

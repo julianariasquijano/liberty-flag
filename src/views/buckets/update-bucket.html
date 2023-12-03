@@ -5,36 +5,55 @@
     </div>
   </div>
   <form action="/update-bucket" method="POST">
-
-    <!-- Grid -->
-    <div class="grid">
-
+  
+    <div class="mb-3">
+  
       <!-- Markup example 1: input is inside label -->
       <label for="bucket-name-disabled">
-        <%= labels.bucket %> <%= labels.name %>
-        <input type="text" id="bucket-name-disabled" name="bucket-name-disabled"  disabled value="<%= bucket.name %>">
-        <input type="hidden" name="bucket-name" value="<%= bucket.name %>">
-        <input type="hidden" id="bucket-contexts" name="bucket-contexts" value="<%= JSON.stringify(bucket.contexts) %>">
+        <%= labels.bucket %>
+          <%= labels.name %>
       </label>
-
+      <input class="form-control" type="text" id="bucket-name-disabled" name="bucket-name-disabled" disabled
+        value="<%= bucket.name %>">
+      <input type="hidden" name="bucket-name" value="<%= bucket.name %>">
+      <input type="hidden" id="bucket-contexts" name="bucket-contexts" value="<%= JSON.stringify(bucket.contexts) %>">
+  
     </div>
-
-    <details open>
-      <summary role="button" style="background-color: cornflowerblue">Contexts List </summary>
-      <article>
-        <div style="text-align: right;">
-          <div class="btn-group" role="group" aria-label="Flags">
-            <a href="#" data-bs-toggle="modal" data-bs-target="#modal-bucket-contexts" class="btn" style="background-color: cornflowerblue;color: white">Edit</a>
-    
+  
+    <div class="accordion" id="configSections">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+            Contexts List
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+          <div class="accordion-body">
+            <article>
+              <div style="text-align: right;">
+                <div class="btn-group" role="group" aria-label="Flags">
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#modal-bucket-contexts" class="btn"
+                    style="background-color: cornflowerblue;color: white">Edit</a>
+  
+                </div>
+              </div>
+              <ul id="contexts-list-form"></ul>
+            </article>
+  
           </div>
-        </div>        
-      <ul id="contexts-list-form"></ul>
-      </article>  
-    </details>    
-
+        </div>
+      </div>
+    </div>
+    <br>
+  
     <!-- Button -->
-    <button type="submit"><%= labels.update %></button>
-      
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary" type="submit">
+        <%= labels.update %>
+      </button>
+    </div>
+  
   </form>
 
 </article>
