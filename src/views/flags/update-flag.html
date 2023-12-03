@@ -48,8 +48,8 @@
               <div style="text-align: right;">
                 <div class="btn-group" role="group" aria-label="Flags">
                   <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#modal-flag-values"
-                    onclick="showValues()" class="btn"
-                    style="background-color: cornflowerblue;color: white">Configure</a>
+                    onclick="showValues()" class="btn btn-success"
+                    >Configure</a>
 
                 </div>
               </div>
@@ -72,7 +72,7 @@
               <div style="text-align: right;">
                 <div class="btn-group" role="group" aria-label="Tags">
                   <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#modal-flag-tags"
-                    onclick="showTags()" class="btn" style="background-color: cadetblue;color: white">Configure</a>
+                    onclick="showTags()" class="btn btn-warning" >Configure</a>
 
                 </div>
               </div>
@@ -334,7 +334,7 @@
       tempContextVar = ""
       for (let contextIndex = 0; contextIndex < element.contexts.length; contextIndex++) {
         const context = element.contexts[contextIndex]
-        tempContextVar = `${tempContextVar} <span class="badge text-bg-primary" style="margin-top:15px;margin-bottom:15px">${context}</span>`
+        tempContextVar = `${tempContextVar} <span class="badge text-bg-success" style="margin-top:15px;margin-bottom:15px">${context}</span>`
         
       }
       var flagType = document.getElementById("flag-type")
@@ -421,7 +421,7 @@
     
     for (index = 0; index < tags.length; index++) {
       var element = tags[index]
-      tempVar = `${tempVar} <span class="badge text-bg-success" style="margin:2px">${element}</span> `
+      tempVar = `${tempVar} <span class="badge text-bg-warning" style="margin:2px">${element}</span> `
       modalTempVar = `${modalTempVar} <li><i class="bi bi-trash" onclick="deleteTag('${element}')"></i> <span class="badge text-bg-success" style="margin:inherit">${element}</span> </li>`
     }
 

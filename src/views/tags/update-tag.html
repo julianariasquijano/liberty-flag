@@ -2,19 +2,21 @@
 <form action="/update-tag" method="POST">
 
   <!-- Grid -->
-  <div class="grid">
+  <div class="mb-3">
 
     <!-- Markup example 1: input is inside label -->
     <label for="tag-name-disabled">
       <%= labels.tag %> <%= labels.name %>
-      <input type="text" id="tag-name-disabled" name="tag-name-disabled"  disabled value="<%= tag.name %>">
-      <input type="hidden" name="tag-name" value="<%= tag.name %>">
     </label>
+      <input class="form-control" type="text" id="tag-name-disabled" name="tag-name-disabled"  disabled value="<%= tag.name %>">
+      <input class="form-control" type="hidden" name="tag-name" value="<%= tag.name %>">
 
   </div>
 
   <!-- Button -->
-  <button type="submit"><%= labels.update %></button>
+  <div class="d-grid gap-2">
+    <button class="btn btn-primary" type="submit"><%= labels.update %></button>
+  </div>
     
 </form>
 </article>
