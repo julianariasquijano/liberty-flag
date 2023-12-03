@@ -65,26 +65,6 @@
             </div>
             </center>
         <% }) %>
-        <script>
-          function setModal(incomingModalId) {
-            var incomingModal=document.getElementById(incomingModalId)
-            var generalModal=document.getElementById('modal-content')
-            generalModal.innerHTML = incomingModal.innerHTML 
-            //incomingModal.remove()
-          }          
-          function showModal() {
-            modalwindow.show()  
-          }
-          function closeModal() {
-            modalwindow.close()  
-          }          
-        </script> 
-        <dialog id="modalwindow">
-          <div><a onclick="modalwindow.close()" style="position: absolute;top: 0;left: 0;">[X]</a></div>
-          <center>
-            <div id="modal-content"/>
-        </center>
-        </dialog>
         <main style="padding: 20px;">     
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">

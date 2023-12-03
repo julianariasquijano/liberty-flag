@@ -18,26 +18,46 @@
     
 </form>
 </article>
-<div id="modal-delete-tag" style="visibility: hidden;">
-  <article>
-    <table>
-      <tr>
-        <td><p style="font-size: xx-large;"><%= labels.confirm %> <%= labels.deletion %></p></td>
-      </tr>
-      <tr>
-        <td><%= labels.delete %> : <strong><%= tag.name %></strong></td>
-      </tr>         
-    </table>
-    <footer>
-      <a href='/delete-tag?name=<%= tag.name %>'' role='button' style='color:white;background-color: firebrick;'><%= labels.delete %></a>
-      <a href='#' onclick="closeModal()" role='button'><%= labels.cancel %></a>
-    </footer>
-  </article>
+<div id="modal-delete-tag" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <%= labels.confirm %>
+            <%= labels.deletion %>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <article>
+          <table>
+            <tr>
+              <td>
+                <%= labels.delete %> : <strong>
+                    <%= tag.name %>
+                  </strong>
+              </td>
+            </tr>
+          </table>
+        </article>
+      </div>
+      <div class="modal-footer">
+        <a href='/delete-tag?name=<%= tag.name %>' class="btn btn-danger"
+          style='color:white;background-color: firebrick;'>
+          <%= labels.delete %>
+        </a>
+        <a href='#' class="btn btn-primary" data-bs-dismiss="modal">
+          <%= labels.cancel %>
+        </a>
+      </div>
+
+    </div>
+  </div>
 </div>
 <script>
   document.getElementById("menu-title").innerHTML = "<strong><%= labels.update %> <%= labels.tag %></strong>"
   document.getElementById("menu-actions").innerHTML = `
-    <li><a class="dropdown-item" href='#' role='button' onclick='showModal()'' style='color:white;background-color: firebrick;''><%= labels.delete %> <%= labels.tag %></a></li>
+    <li><a class="dropdown-item" href='#' data-bs-toggle="modal" data-bs-target="#modal-delete-tag" style='color:white;background-color: firebrick;''><%= labels.delete %> <%= labels.tag %></a></li>
   `
   setModal('modal-delete-tag')
 </script>

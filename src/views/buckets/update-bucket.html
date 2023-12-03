@@ -24,7 +24,7 @@
       <article>
         <div style="text-align: right;">
           <div class="btn-group" role="group" aria-label="Flags">
-            <a href="#" type="button" onclick="setModal('modal-bucket-contexts');showModal();showContexts();addContextsBoxListener()" class="btn" style="background-color: cornflowerblue;color: white">Edit</a>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#modal-bucket-contexts" class="btn" style="background-color: cornflowerblue;color: white">Edit</a>
     
           </div>
         </div>        
@@ -38,49 +38,78 @@
   </form>
 
 </article>
-<div id="modal-delete-bucket" style="visibility: hidden;">
-  <article>
-    <table>
-      <tr>
-        <td><p style="font-size: xx-large;"><%= labels.confirm %> <%= labels.deletion %></p></td>
-      </tr>
-      <tr>
-        <td><%= labels.delete %> : <strong><%= bucket.name %></strong></td>
-      </tr>         
-    </table>
-    <footer>
-      <a href='/delete-bucket?name=<%= bucket.name %>'' role='button' style='color:white;background-color: firebrick;'><%= labels.delete %></a>
-      <a href='#' onclick="closeModal()" role='button'><%= labels.cancel %></a>
-    </footer>
-  </article>
+<div id="modal-delete-bucket" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <%= labels.confirm %>
+            <%= labels.deletion %>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <article>
+          <table>
+            <tr>
+              <td>
+                <%= labels.delete %> : <strong>
+                    <%= bucket.name %>
+                  </strong>
+              </td>
+            </tr>
+            </tr>
+            </tr>
+          </table>
+        </article>
+      </div>
+      <div class="modal-footer">
+        <a href='/delete-bucket?name=<%= bucket.name %>' class="btn btn-danger"
+          style='color:white;background-color: firebrick;'>
+          <%= labels.delete %>
+        </a>
+        <a href='#' class="btn btn-primary" data-bs-dismiss="modal">
+          <%= labels.cancel %>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
-<div id="modal-bucket-contexts" style="visibility: hidden;">
-  <article>
-    <table>
-      <tr>
-        <td><p style="font-size: xx-large;">Edit Contexts</p></td>
-      </tr>      
-      <tr>
-        <td>
-          <div style="text-align: right;">
-            <div class="btn-group" role="group" aria-label="Operations">
-              <a href="#" id="add-context-button" type="button" onclick="addContext()" class="btn btn-outline-primary btn-sm" >+</a>
-            </div>
-          </div>
-          <br>
-          <input type="text" id="context-box" placeholder="Context Name">                 
-        </td>
-      </tr>     
-      <tr>
-        <td>
-          <ul id="contexts-list-modal"></ul>
-        </td>
-      </tr>         
-    </table>
-    <footer>
-      <a href='#' onclick="closeModal()" role='button'>Close</a>
-    </footer>
-  </article>
+<div id="modal-bucket-contexts" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Contexts</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <article>
+          <table>
+            <tr>
+              <td>
+                <div style="text-align: right;">
+                  <div class="btn-group" role="group" aria-label="Operations">
+                    <a href="#" id="add-context-button" type="button" onclick="addContext()"
+                      class="btn btn-outline-primary btn-sm">+</a>
+                  </div>
+                </div>
+                <br>
+                <input type="text" id="context-box" placeholder="Context Name">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <ul id="contexts-list-modal"></ul>
+              </td>
+            </tr>
+          </table>
+        </article>
+      </div>
+      <div class="modal-footer">
+        <a href='#' class="btn btn-primary" data-bs-dismiss="modal">Close</a>
+      </div>
+    </div>
+  </div>
 </div>
 <script>
   let contexts = []
@@ -88,10 +117,11 @@
     contexts = JSON.parse("<%= JSON.stringify(bucket.contexts) %>".replace(/&#34;/g,'"').replace(/^"|"$/gm,'')) || []
     
   } catch (error) {}
+  addContextsBoxListener()
   showContexts()
   document.getElementById("menu-title").innerHTML = "<strong><%= labels.update %> <%= labels.bucket %></strong>"
   document.getElementById("menu-actions").innerHTML = `
-    <li><a class="dropdown-item" href='#' role='button' onclick='setModal("modal-delete-bucket");showModal()' style='color:white;background-color: firebrick;'><%= labels.delete %> <%= labels.bucket %></a></li>
+    <li><a class="dropdown-item" href='#' data-bs-toggle="modal" data-bs-target="#modal-delete-bucket" style='color:white;background-color: firebrick;'><%= labels.delete %> <%= labels.bucket %></a></li>
   `
   function addContext() {
     let contextBox = document.getElementById("context-box")
