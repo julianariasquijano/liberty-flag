@@ -208,7 +208,7 @@
             </tr>
             <tr>
               <td>
-                <ul id="tags-list-modal"></ul>
+                <div id="tags-list-modal"></div>
               </td>
             </tr>
           </table>
@@ -334,7 +334,7 @@
       tempContextVar = ""
       for (let contextIndex = 0; contextIndex < element.contexts.length; contextIndex++) {
         const context = element.contexts[contextIndex]
-        tempContextVar = `${tempContextVar} <span class="badge text-bg-success" style="margin:inherit">${context}</span>`
+        tempContextVar = `${tempContextVar} <span class="badge text-bg-primary" style="margin-top:15px;margin-bottom:15px">${context}</span>`
         
       }
       var flagType = document.getElementById("flag-type")
@@ -347,7 +347,7 @@
           contextValue = ""
           
         }
-        widget = `<input id='value.${element.id}' type='checkbox' ${contextValue} role='switch'  />`
+        widget = `<div class="form-check form-switch"><input id='value.${element.id}' type='checkbox' ${contextValue} role='switch' class="form-check-input"/></div>`
       } else if (flagType.value == "list"){
         var selectOptionsHtml = ""
         var selectOptions = document.getElementById("flag-options").value.split("|")
@@ -360,9 +360,9 @@
           selectOptionsHtml = selectOptionsHtml + `<option value="${selectOption}" ${selectOptionSelected} >${selectOption}</option>`
           
         }
-        widget = `<select id='value.${element.id}'>${selectOptionsHtml}</select>`
+        widget = `<select class="form-control" id='value.${element.id}'>${selectOptionsHtml}</select>`
       } else if (flagType.value == "text"){
-        widget = `<input id='value.${element.id}' type='text' value="${element.value}" />`
+        widget = `<div class="mb-3"><input class="form-control" id='value.${element.id}' type='text' value="${element.value}" /></div>`
         
       }
 
@@ -421,7 +421,7 @@
     
     for (index = 0; index < tags.length; index++) {
       var element = tags[index]
-      tempVar = `${tempVar} <li><span class="badge text-bg-success" style="margin:inherit">${element}</span> </li>`
+      tempVar = `${tempVar} <span class="badge text-bg-success" style="margin:2px">${element}</span> `
       modalTempVar = `${modalTempVar} <li><i class="bi bi-trash" onclick="deleteTag('${element}')"></i> <span class="badge text-bg-success" style="margin:inherit">${element}</span> </li>`
     }
 
