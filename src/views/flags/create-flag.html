@@ -7,23 +7,27 @@
   <input type="hidden" id="bucket_name" name="bucket_name" value="<%= bucket_name %>" >
 
   <!-- Grid -->
-  <div class="grid">
+  <div class="mb-3">
 
     <!-- Markup example 1: input is inside label -->
     <label for="flag-name">
       <%= labels.flag %> <%= labels.name %>
-      <input type="text" id="flag-name" name="flag-name" required >
     </label>
+    <input class="form-control" type="text" id="flag-name" name="flag-name" required >
 
+  </div>
+  <div class="mb-3">
     <label for="flag-value">
       <%= labels.flag %> <%= labels.value %>
-      <input type="text" id="flag-value" name="flag-value" required>
     </label>
+    <input class="form-control" type="text" id="flag-value" name="flag-value" required>
 
   </div>
 
   <!-- Button -->
-  <button role="button" type="submit"><%= labels.create %></button>
+  <div class="d-grid gap-2">
+    <button class="btn btn-primary" type="submit"><%= labels.create %></button>
+  </div>
     
 </form>
 </article>

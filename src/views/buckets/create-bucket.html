@@ -6,18 +6,20 @@
 <form action="/create-bucket" method="POST">
 
   <!-- Grid -->
-  <div class="grid">
+  <div class="mb-3">
 
     <!-- Markup example 1: input is inside label -->
-    <label for="bucket-name">
+    <label for="bucket-name" class="form-label">
       <%= labels.bucket %> <%= labels.name %>
-      <input type="text" id="bucket-name" name="bucket-name" required >
     </label>
+    <input class="form-control" type="text" id="bucket-name" name="bucket-name" required >
 
   </div>
 
   <!-- Button -->
-  <button role="button" type="submit"><%= labels.create %></button>
+  <div class="d-grid gap-2">
+    <button class="btn btn-primary" type="submit"><%= labels.create %></button>
+  </div>
     
 </form>
 </article>

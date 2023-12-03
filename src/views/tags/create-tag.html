@@ -6,18 +6,20 @@
 <form action="/create-tag" method="POST">
 
   <!-- Grid -->
-  <div class="grid">
+  <div class="mb-3">
 
     <!-- Markup example 1: input is inside label -->
     <label for="tag-name">
       <%= labels.tag %> <%= labels.name %>
-      <input type="text" id="tag-name" name="tag-name" required >
     </label>
+    <input class="form-control" type="text" id="tag-name" name="tag-name" required >
 
   </div>
 
   <!-- Button -->
-  <button role="button" type="submit"><%= labels.create %></button>
+  <div class="d-grid gap-2">
+    <button class="btn btn-primary" type="submit"><%= labels.create %></button>
+  </div>
     
 </form>
 </article>
