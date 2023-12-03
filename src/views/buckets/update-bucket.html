@@ -91,7 +91,7 @@
   showContexts()
   document.getElementById("menu-title").innerHTML = "<strong><%= labels.update %> <%= labels.bucket %></strong>"
   document.getElementById("menu-actions").innerHTML = `
-    <li><a href='#' role='button' onclick='setModal("modal-delete-bucket");showModal()' style='color:white;background-color: firebrick;'><%= labels.delete %> <%= labels.bucket %></a></li>
+    <li><a class="dropdown-item" href='#' role='button' onclick='setModal("modal-delete-bucket");showModal()' style='color:white;background-color: firebrick;'><%= labels.delete %> <%= labels.bucket %></a></li>
   `
   function addContext() {
     let contextBox = document.getElementById("context-box")

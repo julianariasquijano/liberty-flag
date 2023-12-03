@@ -181,7 +181,7 @@
 
   document.getElementById("menu-title").innerHTML = "<strong><%= labels.update %> <%= labels.flag %></strong>"
   document.getElementById("menu-actions").innerHTML = `
-    <li><a href='#' role='button' onclick='setModal("modal-delete-flag");showModal()' style='color:white;background-color: firebrick;'><%= labels.delete %> <%= labels.flag %></a></li>
+    <li><a class="dropdown-item" href='#' role='button' onclick='setModal("modal-delete-flag");showModal()' style='color:white;background-color: firebrick;'><%= labels.delete %> <%= labels.flag %></a></li>
   `
   setModal('modal-delete-flag')
 
