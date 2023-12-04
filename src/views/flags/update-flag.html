@@ -136,17 +136,11 @@
       </div>
       <div class="modal-body">
         <article>
-          <table>
+          <table style="width: 100%;">
             <tr>
               <td>
-                <div style="text-align: right;">
-                  <div class="btn-group" role="group" aria-label="Operations">
-                    <a href="#" id="add-context-button" type="button" onclick="addValue()"
-                      class="btn btn-outline-primary btn-sm">+</a>
-                  </div>
-                </div>
-                <br>
-                <span style="font-size: larger;">Add Contexts combinations</span>
+                <span style="font-size: larger;">Add contexts combinations</span><span style="display:inline-block;width: 122px;"></span>
+                <a href="#" id="add-context-button" type="button" onclick="addValue()" class="btn btn-outline-primary btn-sm">+</a>                
                 <br>
                 <br>
                 <select multiple id="value-contexts">
@@ -159,6 +153,7 @@
 
                         <% } %>
                 </select>
+                <br>
               </td>
             </tr>
             <tr>
@@ -184,17 +179,10 @@
       </div>
       <div class="modal-body">
         <article>
-          <table>
+          <table style="width: 100%;">
             <tr>
               <td>
-                <div style="text-align: right;">
-                  <div class="btn-group" role="group" aria-label="Operations">
-                    <a href="#" id="add-context-button" type="button" onclick="addTag()"
-                      class="btn btn-outline-primary btn-sm">+</a>
-                  </div>
-                </div>
-                <br>
-                <span style="font-size: larger;">Add Tags</span>
+                <span style="font-size: larger;">Add Tags</span><span style="display:inline-block;width: 284px;"></span><a href="#" id="add-context-button" type="button" onclick="addTag()" class="btn btn-outline-primary btn-sm">+</a>
                 <br>
                 <br>
                 <select multiple id="tags">
@@ -204,6 +192,7 @@
                     </option>
                     <% }) %>
                 </select>
+                <br>                
               </td>
             </tr>
             <tr>
@@ -245,7 +234,7 @@
     
   } catch (error) {}
 
-  
+  prepareSelectsModals()
   showValues()
   showTags()
 
@@ -269,9 +258,13 @@
 
   }
 
-  function prepareValuesModal() {
-    var select_element = document.getElementById("value-contexts");
-    multi(select_element, {
+  function prepareSelectsModals() {
+    var selectElement = document.getElementById("value-contexts");
+    multi(selectElement, {
+      //search_placeholder: 'Search fruits...',
+    });
+    let tagsElement = document.getElementById("tags")
+    multi(tagsElement, {
       //search_placeholder: 'Search fruits...',
     });    
   }
@@ -347,7 +340,7 @@
           contextValue = ""
           
         }
-        widget = `<div class="form-check form-switch"><input id='value.${element.id}' type='checkbox' ${contextValue} role='switch' class="form-check-input"/></div>`
+        widget = `<div class="form-check form-switch"><input id='value.${element.id}' type='checkbox' ${contextValue} role='switch' class="form-check-input" style="width:44px;height:22px"/></div>`
       } else if (flagType.value == "list"){
         var selectOptionsHtml = ""
         var selectOptions = document.getElementById("flag-options").value.split("|")
