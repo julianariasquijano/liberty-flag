@@ -31,6 +31,7 @@ module.exports = function(viewVars,db,util) {
   router.post('create-flag', '/create-flag',  koaBody(), async (ctx) => {
   
     viewVars.flag = await db.createFlag(ctx.request.body)
+    viewVars.tags = await db.getTags()
     viewVars.messages=[viewVars.labels.created]
     let newBreadcrumb = {label:"Update Flag",url:"/update-flag?name="+ctx.request.body["flag-name"]}
     viewVars.breadcrumbs = util.setBreadcrumbCookieList (ctx,newBreadcrumb,2)
