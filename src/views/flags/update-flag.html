@@ -373,7 +373,7 @@
       tempContextVar = ""
       for (let contextIndex = 0; contextIndex < element.contexts.length; contextIndex++) {
         const context = element.contexts[contextIndex]
-        tempContextVar = `${tempContextVar} <span class="badge text-bg-primary">${context}</span>`
+        tempContextVar = `${tempContextVar} <span class="badge text-bg-success">${context}</span>`
         
       }
       
@@ -415,7 +415,7 @@
     for (index = 0; index < tags.length; index++) {
       var element = tags[index]
       tempVar = `${tempVar} <span class="badge text-bg-warning" style="margin:2px">${element}</span> `
-      modalTempVar = `${modalTempVar} <li><i class="bi bi-trash" onclick="deleteTag('${element}')"></i> <span class="badge text-bg-success" style="margin:inherit">${element}</span> </li>`
+      modalTempVar = `${modalTempVar} <li><i class="bi bi-trash" onclick="deleteTag('${element}')"></i> <span class="badge text-bg-warning" style="margin:inherit">${element}</span> </li>`
     }
 
     tagsListForm.innerHTML= tempVar
