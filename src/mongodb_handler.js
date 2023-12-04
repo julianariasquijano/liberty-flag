@@ -22,7 +22,8 @@ const createFlag = async function (data){
         flag_name: data["flag-name"],
         flag_type: data["flag-type"],
         flag_options: data["flag-options"],
-        flag_values: data["flag-values"],
+        flag_values: [],
+        flag_tags: [],
         bucket_id: bucket._id.toString()
       })
 
@@ -47,8 +48,7 @@ const getFlags = async function (bucketName){
           list.push({
               bucket_id: document.bucket_id,
               name: document.flag_name,
-              type: document.flag_type,
-              options: document.flag_options
+              type: document.flag_type
           });       
       }
     } catch (error) {
@@ -100,8 +100,8 @@ const updateFlag = async function (data){
         bucket_id: flag.bucket_id,
         flag_name: data["flag-name"],
         flag_type: data["flag-type"],
-        flag_values: data["flag-values"],
-        flag_tags: data["flag-tags"],
+        flag_values: JSON.parse(data["flag-values"]),
+        flag_tags: JSON.parse(data["flag-tags"]),
         flag_options: data["flag-options"]
 
       }, 
@@ -129,7 +129,7 @@ const createBucket = async function (data){
 
   await db.collection('buckets').insertOne({
       bucket_name: data["bucket-name"],
-      bucket_value: data["bucket-value"]
+      bucket_contexts: []
   })
 
   await client.close()
@@ -150,8 +150,7 @@ const getBuckets = async function (){
     while (await cursor.hasNext()) {
         document = await cursor.next();
         list.push({
-            name: document.bucket_name,
-            value: document.bucket_value
+            name: document.bucket_name
         });       
     }
   } catch (error) {
@@ -179,8 +178,7 @@ const getBucket = async function (bucketName){
       result = {
           _id: document._id,
           name: document.bucket_name,
-          value: document.bucket_value,
-          contexts: JSON.parse(document.bucket_contexts)
+          contexts: document.bucket_contexts
       };          
   }    
     
@@ -198,8 +196,7 @@ const updateBucket = async function (data){
     bucket_name: data["bucket-name"] }, //filter
     { //document
       bucket_name: data["bucket-name"],
-      bucket_value: data["bucket-value"],
-      bucket_contexts: data["bucket-contexts"]
+      bucket_contexts: JSON.parse(data["bucket-contexts"])
     }, 
     {upsert: false} //options
   )
