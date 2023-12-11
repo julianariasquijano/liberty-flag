@@ -161,7 +161,7 @@
     let contextBox = document.getElementById("context-box")
     contexts.push({
       name:contextBox.value,
-      id:contextBox.value.hashCode()
+      id:"<%=bucket._id%>"+contextBox.value.hashCode()
     })
     contextBox.value = ""
     showContexts()

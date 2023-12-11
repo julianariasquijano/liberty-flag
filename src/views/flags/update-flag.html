@@ -47,9 +47,9 @@
             <article>
               <div style="text-align: right;">
                 <div class="btn-group" role="group" aria-label="Flags">
-                  <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#modal-flag-values"
+                  <!-- <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#modal-flag-values"
                     onclick="showValues()" class="btn btn-success"
-                    >Configure</a>
+                    >Configure</a> -->
 
                 </div>
               </div>
@@ -127,48 +127,6 @@
     </div>
   </div>
 </div>
-<div id="modal-flag-values" class="modal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Configure Values</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <article>
-          <table style="width: 100%;">
-            <tr>
-              <td>
-                <span style="font-size: larger;">Add contexts combinations</span><span style="display:inline-block;width: 122px;"></span>
-                <a href="#" id="add-context-button" type="button" onclick="addValue()" class="btn btn-outline-primary btn-sm">+</a>                
-                <br>
-                <br>
-                <select class="form-control" id="value-contexts">
-                  <% if (bucket.contexts.constructor.name=="Array" ) { %>
-                    <% bucket.contexts.forEach(element=> { %>
-                      <option value="<%= element.name %>">
-                        <%= element.name %>
-                      </option>
-                    <% }) %>
-                  <% } %>
-                </select>
-                <br>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <ul id="values-list-modal"></ul>
-              </td>
-            </tr>
-          </table>
-      </div>
-      </article>
-      <div class="modal-footer">
-        <a href='#' class="btn btn-primary" data-bs-dismiss="modal" role='button'>Close</a>
-      </div>
-    </div>
-  </div>
-</div>
 <div id="modal-flag-tags" class="modal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -241,28 +199,24 @@
   document.getElementById("menu-actions").innerHTML = `
     <li><a class="dropdown-item" href='#' data-bs-toggle="modal" data-bs-target="#modal-delete-flag" style='color:white;background-color: firebrick;'><%= labels.delete %> <%= labels.flag %></a></li>
   `
-  setModal('modal-delete-flag')
+  //setModal('modal-delete-flag')
 
-  function addValue() {
-    let valueContexts = document.getElementById("value-contexts")
-    let contextsList = Array.from(valueContexts.selectedOptions).map(v=>v.value)
+  function addValue(context) {
+    //let valueContexts = document.getElementById("value-contexts")
+    //let contextsList = Array.from(valueContexts.selectedOptions).map(v=>v.value)
     values.push({
-      context:contextsList,
+      context:context,
       //id:JSON.stringify(contextsList).hashCode()
-      id:contextsList[0].hashCode() // TODO: Generalize concept of only one context by value
+      id:"<%=bucket._id%>"+context.hashCode() // TODO: Generalize concept of only one context by value
     })
 
-    valueContexts.value = ""
+    //valueContexts.value = ""
 
     showValues() 
 
   }
 
   function prepareSelectsModals() {
-    var selectElement = document.getElementById("value-contexts");
-    multi(selectElement, {
-      //search_placeholder: 'Search fruits...',
-    });
     let tagsElement = document.getElementById("tags")
     multi(tagsElement, {
       //search_placeholder: 'Search fruits...',
@@ -325,11 +279,12 @@
     for (index = 0; index < values.length; index++) {
       var element = values[index];
       tempContextVar = ""
-      for (let contextIndex = 0; contextIndex < element.contexts.length; contextIndex++) {
-        const context = element.contexts[contextIndex]
-        tempContextVar = `${tempContextVar} <span class="badge text-bg-success" style="margin-top:15px;margin-bottom:15px">${context}</span>`
+      //for (let contextIndex = 0; contextIndex < element.contexts.length; contextIndex++) {
+        //const context = element.contexts[contextIndex]
+        //const context = element.context
+        tempContextVar = `${tempContextVar} <span class="badge text-bg-success" style="margin-top:15px;margin-bottom:15px">${element.context}</span>`
         
-      }
+      //}
       var flagType = document.getElementById("flag-type")
       var widget = ""
       if (flagType.value == "bool") {
@@ -362,24 +317,6 @@
       tempVar = `<li>${tempContextVar} <br> ${widget} </li>`
       valuesListForm.innerHTML=valuesListForm.innerHTML + tempVar
       
-    }
-
-    let valuesListModal = document.getElementById("values-list-modal")
-    tempVar = ""
-    valuesListModal.innerHTML=""
-
-    for (let index = 0; index < values.length; index++) {
-      element = values[index];
-      tempContextVar = ""
-      for (let contextIndex = 0; contextIndex < element.contexts.length; contextIndex++) {
-        const context = element.contexts[contextIndex]
-        tempContextVar = `${tempContextVar} <span class="badge text-bg-success">${context}</span>`
-        
-      }
-      
-      tempVar = `<li><i class="bi bi-trash" onclick="deleteValue('${element.id}')" style="color: red;font-size: larger;"></i> - ${tempContextVar}</li>`
-      valuesListModal.innerHTML=valuesListModal.innerHTML + tempVar
-
     }
 
     document.getElementById("flag-values").value=JSON.stringify(values)
@@ -425,3 +362,10 @@
     
   }
 </script>
+<% if (flag.values.length==0 ) { %>
+  <% bucket.contexts.forEach(element=> { %>
+    <script>
+        addValue("<%=element.name%>")
+    </script>
+  <% }) %>
+<% } %>  
