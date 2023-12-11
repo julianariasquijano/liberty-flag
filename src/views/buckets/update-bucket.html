@@ -144,9 +144,25 @@
   document.getElementById("menu-actions").innerHTML = `
     <li><a class="dropdown-item" href='#' data-bs-toggle="modal" data-bs-target="#modal-delete-bucket" style='color:white;background-color: firebrick;'><%= labels.delete %> <%= labels.bucket %></a></li>
   `
+
+  String.prototype.hashCode = function() {
+    var hash = 0,
+      i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+      chr = this.charCodeAt(i);
+      hash = ((hash << 5) - hash) + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+  }
+
   function addContext() {
     let contextBox = document.getElementById("context-box")
-    contexts.push({name:contextBox.value})
+    contexts.push({
+      name:contextBox.value,
+      id:contextBox.value.hashCode()
+    })
     contextBox.value = ""
     showContexts()
 
@@ -176,7 +192,7 @@
     
     for (index = 0; index < contexts.length; index++) {
       element = contexts[index];
-      tempVar = `<li>${element.name}</li>`
+      tempVar = `<li>${element.name} - ${element.id}</li>`
       contextsListForm.innerHTML=contextsListForm.innerHTML + tempVar
       
     }

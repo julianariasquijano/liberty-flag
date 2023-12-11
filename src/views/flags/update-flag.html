@@ -143,15 +143,14 @@
                 <a href="#" id="add-context-button" type="button" onclick="addValue()" class="btn btn-outline-primary btn-sm">+</a>                
                 <br>
                 <br>
-                <select multiple id="value-contexts">
+                <select class="form-control" id="value-contexts">
                   <% if (bucket.contexts.constructor.name=="Array" ) { %>
                     <% bucket.contexts.forEach(element=> { %>
                       <option value="<%= element.name %>">
                         <%= element.name %>
                       </option>
-                      <% }) %>
-
-                        <% } %>
+                    <% }) %>
+                  <% } %>
                 </select>
                 <br>
               </td>
@@ -248,8 +247,9 @@
     let valueContexts = document.getElementById("value-contexts")
     let contextsList = Array.from(valueContexts.selectedOptions).map(v=>v.value)
     values.push({
-      contexts:contextsList,
-      id:JSON.stringify(contextsList).hashCode()
+      context:contextsList,
+      //id:JSON.stringify(contextsList).hashCode()
+      id:contextsList[0].hashCode() // TODO: Generalize concept of only one context by value
     })
 
     valueContexts.value = ""
