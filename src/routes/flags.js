@@ -71,7 +71,7 @@ module.exports = function(viewVars,db,util) {
   
   })
   
-  router.post('api-get-flag', '/api/flag',  koaBody(), (ctx) => {
+  router.post('/api/flag',  koaBody(), (ctx) => {
     var flag = ""
     try {
       flag = db.getFlag(ctx.request.body.flag)
@@ -81,9 +81,20 @@ module.exports = function(viewVars,db,util) {
       console.error(error)
     }
     return ctx.body=flag.value
-  })  
+  })
 
-
+  router.post('/api/v1/values',  koaBody(), async (ctx) => {
+    var flagsValues = "{}"
+      try {
+        flagsValues = JSON.stringify(await db.getFlagsValues(ctx.request.body["context-key"]))
+      } catch (error) {
+        ctx.status = 500
+        ctx.body = "error"
+        console.error(error)
+      }
+      ctx.body=flagsValues
+    })
+  
   return router
 
 }

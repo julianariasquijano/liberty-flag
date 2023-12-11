@@ -15,4 +15,9 @@ koa
     node src/index.js
     npm start
 
-    curl -d "flag=threaded" -X POST http://localhost:8000/api/flag
+curl -d "flag=threaded" -X POST http://localhost:8000/api/flag
+
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"context-key":"65766f67af5be496bfc725c267573"}' \
+  http://localhost:8000/api/v1/values

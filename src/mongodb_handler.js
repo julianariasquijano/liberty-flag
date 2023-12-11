@@ -303,3 +303,32 @@ const deleteTag = async function (tagName){
 
 }
 exports.deleteTag = deleteTag
+
+const getFlagsValues = async function (contextKey){
+  let flags = []
+  await client.connect();
+  db = client.db("liberty-flag");    
+  const cursor = await db.collection('flags').find({ "flag_values.id": contextKey });
+  
+  let document = {}
+  while (await cursor.hasNext()) {
+    document = await cursor.next();
+    var flag = {};
+    for (let contextIndex = 0; contextIndex < document.flag_values.length; contextIndex++) {
+      flagValue = document.flag_values[contextIndex];
+      if (flagValue.id == contextKey) {
+        flag = {
+          name: document.flag_name,
+          value: flagValue.value
+        };
+        break              
+      }
+    }
+    flags.push(flag)
+  }    
+    
+  await client.close()
+  return flags;
+
+}
+exports.getFlagsValues = getFlagsValues
