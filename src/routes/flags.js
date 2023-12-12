@@ -93,6 +93,7 @@ module.exports = function(viewVars,db,util) {
         console.error(error)
       }
       ctx.body=flagsValues
+      console.log("API: values endpoint requested.")
     })
   
   return router
