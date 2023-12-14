@@ -53,7 +53,7 @@
 
                 </div>
               </div>
-              <ul id="values-list-form"></ul>
+              <table id="values-list-form" class="table"></table>
             </article>
           </div>
         </div>
@@ -282,7 +282,7 @@
       //for (let contextIndex = 0; contextIndex < element.contexts.length; contextIndex++) {
         //const context = element.contexts[contextIndex]
         //const context = element.context
-        tempContextVar = `${tempContextVar} <span class="badge text-bg-success" style="margin-top:15px;margin-bottom:15px">${element.context}</span>`
+        tempContextVar = `${tempContextVar} <tr><td> <span class="badge text-bg-success" style="margin-top:15px;margin-bottom:15px;font-size:large">${element.context}</span><span style="width:15px"></span>`
         
       //}
       var flagType = document.getElementById("flag-type")
@@ -314,7 +314,7 @@
         
       }
 
-      tempVar = `<li>${tempContextVar} <br> ${widget} </li>`
+      tempVar = `${tempContextVar} ${widget} </td>`
       valuesListForm.innerHTML=valuesListForm.innerHTML + tempVar
       
     }

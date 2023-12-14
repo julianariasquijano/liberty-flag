@@ -38,9 +38,8 @@
   
                 </div>
               </div>
-              <ul id="contexts-list-form"></ul>
+              <table id="contexts-list-form" class="table"></table>
             </article>
-  
           </div>
         </div>
       </div>
@@ -192,7 +191,7 @@
     
     for (index = 0; index < contexts.length; index++) {
       element = contexts[index];
-      tempVar = `<li>${element.name} - ${element.id}</li>`
+      tempVar = `<tr><td>${element.name}</td><td>${element.id}</td></tr>`
       contextsListForm.innerHTML=contextsListForm.innerHTML + tempVar
       
     }
