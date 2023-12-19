@@ -5,12 +5,14 @@
     </div>
   </div>
   <br>
-<table class="table table-striped table-hover">
-  <tr>
+<table class="table table-striped table-hover" data-toggle="table" data-pagination="true" data-search="true">
+  <thead>
+    <tr>
       <th><%= labels.flag %> <%= labels.name %></th>
       <th><%= labels.flag %> Values</th>
       <th><%= labels.flag %> Tags</th>
-  </tr>
+    </tr>
+  </thead>
   <% flags.forEach( function(flag) { %>
     <tr>
       <td><a href="/update-flag?name=<%= flag.name %>&bucket-name=<%= bucket.name %>"> <%= flag.name %></a></td>
@@ -38,11 +40,12 @@
       </td>
       <td>
         <% flag.tags.forEach( function(tag) { %>
-          <span class="badge text-bg-warning" style="margin:2px;font-size:large"><%= tag %></span>
+          <span class="badge text-bg-warning" style="margin:2px;font-size:large">tag:<%= tag %></span>
         <% }) %>        
       </td>
     </tr>    
   <% }) %>
+
 </table>
 </article>
 <script>
