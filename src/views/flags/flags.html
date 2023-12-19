@@ -8,19 +8,38 @@
 <table class="table table-striped table-hover">
   <tr>
       <th><%= labels.flag %> <%= labels.name %></th>
-      <th><%= labels.flag %> <%= labels.value %></th>
+      <th><%= labels.flag %> Values</th>
+      <th><%= labels.flag %> Tags</th>
   </tr>
   <% flags.forEach( function(flag) { %>
     <tr>
       <td><a href="/update-flag?name=<%= flag.name %>&bucket-name=<%= bucket.name %>"> <%= flag.name %></a></td>
       <td>
-        <% if (flag.value=="0") { %>
-          <input type="checkbox" id="switch" name="switch" role="switch" disabled>
-        <% } else if (flag.value=="1") { %>
-          <input type="checkbox" id="switch" name="switch" role="switch" disabled checked>
-        <% } else { %>
-          <%= flag.value %>
-        <% } %>
+        <table>
+        <% flag.values.forEach( function(value) { %>
+          <tr>
+          <td style="font-weight: bold"><%= value.context %><span style="width: 30px;display: inline-block;"></span></td>
+          <td>
+          <% if (value.value=="0") { %>
+            <div class="form-check form-switch">
+              <input type="checkbox" id="switch" name="switch" class="form-check-input" disabled>
+            </div>
+          <% } else if (value.value=="1") { %>
+            <div class="form-check form-switch">
+              <input type="checkbox" id="switch" name="switch" class="form-check-input" disabled checked>
+            </div>
+          <% } else { %>
+            <%= value.value %>
+          <% } %>
+          </td>
+          </tr>
+        <% }) %>
+        </table>
+      </td>
+      <td>
+        <% flag.tags.forEach( function(tag) { %>
+          <span class="badge text-bg-warning" style="margin:2px;font-size:large"><%= tag %></span>
+        <% }) %>        
       </td>
     </tr>    
   <% }) %>

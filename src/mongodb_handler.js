@@ -48,7 +48,9 @@ const getFlags = async function (bucketName){
           list.push({
               bucket_id: document.bucket_id,
               name: document.flag_name,
-              type: document.flag_type
+              type: document.flag_type,
+              values: document.flag_values,
+              tags: document.flag_tags
           });       
       }
     } catch (error) {
